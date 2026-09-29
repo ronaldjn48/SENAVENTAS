@@ -191,6 +191,8 @@
       const c = r.count ? r.count(s) : '';
       return `<a href="#/${r.id}" class="${App.route === r.id ? 'on' : ''}" data-a="go" data-route="${r.id}">${ic(r.icon)}<span>${r.label}</span>${c !== '' && c !== 0 ? `<span class="n">${c}</span>` : ''}</a>`;
     }).join('');
+    const bn = [['inicio', 'home', 'Inicio'], ['productos', 'inventory_2', 'Productos'], ['tienda', 'storefront', 'Tienda'], ['pedidos', 'receipt_long', 'Pedidos']];
+    $('#bnav').innerHTML = bn.map(([id, i, l]) => `<a href="#/${id}" class="${App.route === id ? 'on' : ''}" data-a="go" data-route="${id}">${ic(i)}<span>${l}</span>${id === 'pedidos' && s.orders.length ? `<b>${s.orders.length}</b>` : ''}</a>`).join('') + `<button data-a="open-side" class="${['configuracion', 'api', 'publicar'].includes(App.route) ? 'on' : ''}">${ic('menu')}<span>Más</span></button>`;
     const initials = s.owner.name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
     $('#user-card').innerHTML = `<div class="avatar">${esc(initials || 'A')}</div><div class="grow"><b>${esc(s.owner.name)}</b><small>${esc(s.owner.role)} • Ficha ${esc(s.owner.ficha)}</small></div>${ic('edit', 'sm muted')}`;
     $('#notif-dot').classList.toggle('hide', !App.ui.unseen);
@@ -557,7 +559,7 @@
     const allSel = rows.length && rows.every((p) => sel.has(p.id));
     return `
       ${sel.size ? `<div class="bulk"><b>${sel.size} seleccionado(s)</b><span class="grow"></span><button class="btn btn-sm" data-a="bulk" data-op="publicado">${ic('public', 'sm')} Publicar</button><button class="btn btn-sm" data-a="bulk" data-op="borrador">${ic('draft', 'sm')} Borrador</button><button class="btn btn-sm" data-a="bulk" data-op="delete">${ic('delete', 'sm')} Eliminar</button><button class="btn btn-sm" data-a="bulk" data-op="clear">${ic('close', 'sm')}</button></div>` : ''}
-      <div class="tbl-wrap"><table class="tbl"><thead><tr><th class="c" style="width:44px"><input type="checkbox" data-a="sel-all" ${allSel ? 'checked' : ''} aria-label="Seleccionar página"></th><th>Producto & identificador</th><th>Categoría</th><th class="r">Precio venta</th><th class="r">Costo / margen</th><th style="width:170px">Stock & disponibilidad</th><th class="c">Estado</th><th class="c">Acciones</th></tr></thead><tbody>
+      <div class="tbl-wrap"><table class="tbl cards"><thead><tr><th class="c" style="width:44px"><input type="checkbox" data-a="sel-all" ${allSel ? 'checked' : ''} aria-label="Seleccionar página"></th><th>Producto & identificador</th><th>Categoría</th><th class="r">Precio venta</th><th class="r">Costo / margen</th><th style="width:170px">Stock & disponibilidad</th><th class="c">Estado</th><th class="c">Acciones</th></tr></thead><tbody>
       ${rows.map((p) => {
         const m = U.margin(p.price, p.cost);
         const stock = Number(p.stock); const min = Number(p.minStock) || 0;
@@ -566,13 +568,13 @@
         const lbl = stock <= 0 ? '<span class="err-t">Agotado</span>' : stock <= min ? '<span style="color:var(--sec)">Bajo stock</span>' : pct > 70 ? 'Nivel alto' : pct > 40 ? 'Óptimo' : 'Nivel medio';
         return `<tr class="${sel.has(p.id) ? 'sel' : ''}"><td class="c"><input type="checkbox" data-a="sel" data-id="${p.id}" ${sel.has(p.id) ? 'checked' : ''} aria-label="Seleccionar ${esc(p.name)}"></td>
           <td><div class="prod-cell"><img src="${imgSrc(p)}" alt="" data-ph="${esc(p.name)}" loading="lazy"><div style="min-width:0"><b data-a="edit-product" data-id="${p.id}">${esc(p.name)}</b><span class="sku">SKU: ${esc(p.sku || '—')}</span>${!p.image ? ' <span class="chip red" style="font-size:10px">sin foto</span>' : ''}</div></div></td>
-          <td><span class="chip">${esc(p.category)}</span></td>
-          <td class="r b">${money(p.price)}${Number(p.compareAt) > Number(p.price) ? `<div class="tiny muted" style="text-decoration:line-through">${money(p.compareAt)}</div>` : ''}</td>
-          <td class="r"><div class="small muted">${money(p.cost)} c/u</div><b class="small ${m < 20 ? 'err-t' : 'ok-t'}">${m >= 0 ? '+' : ''}${U.pct(m)} margen</b></td>
-          <td><div class="stockbar ${lvl}"><div class="top-line"><span class="${lvl === 'out' ? 'muted' : 'ok-t'}">${stock} uds</span><span class="muted">${lbl}</span></div><div class="bar"><i style="width:${stock <= 0 ? 0 : Math.max(6, pct)}%"></i></div><div class="row" style="gap:2px"><button class="btn btn-sm btn-ghost" style="padding:0 6px" data-a="stock" data-id="${p.id}" data-d="-1" title="Restar 1">−</button><button class="btn btn-sm btn-ghost" style="padding:0 6px" data-a="stock" data-id="${p.id}" data-d="1" title="Sumar 1">+</button><button class="btn btn-sm btn-ghost" style="padding:0 6px" data-a="stock" data-id="${p.id}" data-d="10" title="Sumar 10">+10</button></div></div></td>
-          <td class="c"><button data-a="toggle-status" data-id="${p.id}" title="Cambiar estado">${p.status === 'publicado' ? '<span class="chip green"><i class="d"></i>Publicado</span>' : '<span class="chip gray"><i class="d"></i>Borrador</span>'}</button></td>
-          <td><div class="actions"><button class="icon-btn" title="Editar" data-a="edit-product" data-id="${p.id}">${ic('edit')}</button><button class="icon-btn" title="Duplicar" data-a="dup-product" data-id="${p.id}">${ic('content_copy')}</button><button class="icon-btn danger" title="Eliminar" data-a="del-product" data-id="${p.id}">${ic('delete')}</button></div></td></tr>`;
-      }).join('') || `<tr><td colspan="8"><div class="empty">${ic('inventory')}<p>No hay productos con estos filtros.</p><button class="btn btn-primary" data-a="new-product">${ic('add')} Nuevo producto</button></div></td></tr>`}
+          <td data-label="Categoría"><span class="chip">${esc(p.category)}</span></td>
+          <td class="r b" data-label="Precio venta">${money(p.price)}${Number(p.compareAt) > Number(p.price) ? `<div class="tiny muted" style="text-decoration:line-through">${money(p.compareAt)}</div>` : ''}</td>
+          <td class="r" data-label="Costo / margen"><div class="small muted">${money(p.cost)} c/u</div><b class="small ${m < 20 ? 'err-t' : 'ok-t'}">${m >= 0 ? '+' : ''}${U.pct(m)} margen</b></td>
+          <td data-label="Stock"><div class="stockbar ${lvl}"><div class="top-line"><span class="${lvl === 'out' ? 'muted' : 'ok-t'}">${stock} uds</span><span class="muted">${lbl}</span></div><div class="bar"><i style="width:${stock <= 0 ? 0 : Math.max(6, pct)}%"></i></div><div class="row" style="gap:2px"><button class="btn btn-sm btn-ghost" style="padding:0 6px" data-a="stock" data-id="${p.id}" data-d="-1" title="Restar 1">−</button><button class="btn btn-sm btn-ghost" style="padding:0 6px" data-a="stock" data-id="${p.id}" data-d="1" title="Sumar 1">+</button><button class="btn btn-sm btn-ghost" style="padding:0 6px" data-a="stock" data-id="${p.id}" data-d="10" title="Sumar 10">+10</button></div></div></td>
+          <td class="c" data-label="Estado"><button data-a="toggle-status" data-id="${p.id}" title="Cambiar estado">${p.status === 'publicado' ? '<span class="chip green"><i class="d"></i>Publicado</span>' : '<span class="chip gray"><i class="d"></i>Borrador</span>'}</button></td>
+          <td class="td-actions"><div class="actions"><button class="icon-btn" title="Editar" data-a="edit-product" data-id="${p.id}">${ic('edit')}</button><button class="icon-btn" title="Duplicar" data-a="dup-product" data-id="${p.id}">${ic('content_copy')}</button><button class="icon-btn danger" title="Eliminar" data-a="del-product" data-id="${p.id}">${ic('delete')}</button></div></td></tr>`;
+      }).join('') || `<tr><td colspan="8" class="td-empty"><div class="empty">${ic('inventory')}<p>No hay productos con estos filtros.</p><button class="btn btn-primary" data-a="new-product">${ic('add')} Nuevo producto</button></div></td></tr>`}
       </tbody></table></div>
       <div class="pager"><div class="row"><span>Filas por página:</span><select class="select" style="width:auto;padding:4px 30px 4px 10px" data-a-change="per-page">${opts([5, 10, 25, 50], per)}</select><span>${list.length ? (page - 1) * per + 1 : 0} - ${Math.min(page * per, list.length)} de ${list.length} ítems</span></div>
       <div class="pages"><button data-a="page" data-p="${page - 1}" ${page <= 1 ? 'disabled' : ''} aria-label="Anterior">${ic('chevron_left')}</button>${Array.from({ length: pages }, (_, i) => `<button class="${i + 1 === page ? 'on' : ''}" data-a="page" data-p="${i + 1}">${i + 1}</button>`).join('')}<button data-a="page" data-p="${page + 1}" ${page >= pages ? 'disabled' : ''} aria-label="Siguiente">${ic('chevron_right')}</button></div></div>`;
@@ -694,8 +696,8 @@
     </div>
     <div class="table-card mt">
       <div class="toolbar"><div class="row">${[['', 'Todos'], ['pendiente', 'Pendientes'], ['pagado', 'Pagados'], ['despachado', 'Despachados'], ['entregado', 'Entregados'], ['cancelado', 'Cancelados']].map(([v, l]) => `<button class="btn btn-sm ${f === v ? 'btn-primary' : 'btn-white'}" data-a="order-filter" data-v="${v}">${l} <span class="tiny">${v ? counts[v] || 0 : s.orders.length}</span></button>`).join('')}</div></div>
-      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Pedido</th><th>Fecha</th><th>Cliente</th><th class="c">Ítems</th><th class="r">Total</th><th>Pago</th><th>Estado</th><th>Canal</th><th></th></tr></thead><tbody>
-      ${list.map((o) => `<tr><td class="mono b"><a href="#" data-a="view-order" data-id="${esc(o.id)}">${esc(o.id)}</a></td><td class="small">${esc(U.fmtDate(o.date))}</td><td><b class="small">${esc(o.customer.name)}</b><div class="tiny muted">${esc(o.customer.city)}${o.customer.dep ? ', ' + esc(o.customer.dep) : ''}</div></td><td class="c">${o.items.filter((i) => !i.bundle).reduce((a, i) => a + i.qty, 0)}</td><td class="r b">${money(o.total)}</td><td class="small">${esc(o.payment.method)}<div class="tiny ${o.payment.status === 'aprobado' ? 'ok-t' : 'warn-t'}">${esc(o.payment.status)}</div></td><td>${statusChip(o.status)}</td><td class="small muted">${esc(o.channel || '')}</td><td><button class="icon-btn" data-a="view-order" data-id="${esc(o.id)}" title="Ver detalle">${ic('open_in_new')}</button></td></tr>`).join('') || `<tr><td colspan="9"><div class="empty">${ic('shopping_cart_off')}<p>Aún no hay pedidos. Abre "Mi Tienda en Vivo", agrega productos al carrito y completa el checkout simulado.</p><button class="btn btn-primary" data-a="go" data-route="tienda">${ic('storefront')} Ir a mi tienda</button></div></td></tr>`}
+      <div class="tbl-wrap"><table class="tbl cards orders"><thead><tr><th>Pedido</th><th>Fecha</th><th>Cliente</th><th class="c">Ítems</th><th class="r">Total</th><th>Pago</th><th>Estado</th><th>Canal</th><th></th></tr></thead><tbody>
+      ${list.map((o) => `<tr><td class="mono b td-head"><a href="#" data-a="view-order" data-id="${esc(o.id)}">${esc(o.id)}</a></td><td class="small" data-label="Fecha">${esc(U.fmtDate(o.date))}</td><td data-label="Cliente"><b class="small">${esc(o.customer.name)}</b><div class="tiny muted">${esc(o.customer.city)}${o.customer.dep ? ', ' + esc(o.customer.dep) : ''}</div></td><td class="c" data-label="Ítems">${o.items.filter((i) => !i.bundle).reduce((a, i) => a + i.qty, 0)}</td><td class="r b" data-label="Total">${money(o.total)}</td><td class="small" data-label="Pago">${esc(o.payment.method)}<div class="tiny ${o.payment.status === 'aprobado' ? 'ok-t' : 'warn-t'}">${esc(o.payment.status)}</div></td><td data-label="Estado">${statusChip(o.status)}</td><td class="small muted" data-label="Canal">${esc(o.channel || '')}</td><td class="td-actions"><button class="icon-btn" data-a="view-order" data-id="${esc(o.id)}" title="Ver detalle">${ic('open_in_new')}</button></td></tr>`).join('') || `<tr><td colspan="9" class="td-empty"><div class="empty">${ic('shopping_cart_off')}<p>Aún no hay pedidos. Abre "Mi Tienda en Vivo", agrega productos al carrito y completa el checkout simulado.</p><button class="btn btn-primary" data-a="go" data-route="tienda">${ic('storefront')} Ir a mi tienda</button></div></td></tr>`}
       </tbody></table></div>
     </div>`;
   };
@@ -1472,7 +1474,11 @@ CAF-010;Café Tostado 250g;Cafés &amp; Bebidas;18000;9500;30;5;publicado;https:
     const r = await SV.api.request({ session: App.s, commit: (msg) => App.commit(msg), emit }, { method: c.method, path: c.path, body: c.body, token: c.token });
     c.busy = false; c.resp = r;
     App.commit(null);
-    if (App.route === 'api' && App.ui.apiTab === 'console') render();
+    if (App.route === 'api' && App.ui.apiTab === 'console') {
+      render();
+      const r = $('[data-partial="conresp"]');
+      if (r && window.innerWidth < 1100) r.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   /* Webhooks */
@@ -1669,7 +1675,7 @@ CAF-010;Café Tostado 250g;Cafés &amp; Bebidas;18000;9500;30;5;publicado;https:
     const s = App.s;
     if (m.type === 'focus') {
       const w = $('#frame-wrap');
-      if (w) { const r = w.getBoundingClientRect(); if (r.bottom > window.innerHeight || r.top < 64) w.scrollIntoView({ behavior: 'smooth', block: 'end' }); }
+      if (w) { const nav = $('#bnav'); const navH = nav && getComputedStyle(nav).display !== 'none' ? nav.offsetHeight : 0; const r = w.getBoundingClientRect(); if (r.bottom > window.innerHeight - navH || r.top < 64) w.scrollIntoView({ behavior: 'smooth', block: 'end' }); }
     } else if (m.type === 'track') {
       s.analytics[m.event] = (s.analytics[m.event] || 0) + 1;
       const p = m.payload || {};
