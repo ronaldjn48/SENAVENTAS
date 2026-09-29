@@ -1,0 +1,13 @@
+{
+  "name": "senaventas",
+  "version": "1.0.0",
+  "description": "Creador educativo de tiendas virtuales tipo WooCommerce y Shopify. Sin transacciones reales.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node tools/serve.mjs 8080",
+    "portable": "node tools/build-portable.mjs",
+    "test": "node tests/smoke.mjs"
+  },
+  "license": "MIT"
+}

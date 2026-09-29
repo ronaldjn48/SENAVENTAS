@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SENAVENTAS · Creador de Tiendas Virtuales</title>
+<meta name="description" content="Simulador educativo para crear, configurar, probar y publicar tiendas virtuales tipo WooCommerce y Shopify. Sin transacciones reales.">
+<meta name="theme-color" content="#005f2e">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SENAVENTAS">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..600,0..1,0&display=block" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<aside class="side" id="side" aria-label="Menú principal">
+  <div class="side-top">
+    <div class="logo">
+      <div class="logo-mark"><span class="ms fill">storefront</span></div>
+      <div><b>SENAVENTAS</b><small>Aula virtual</small></div>
+    </div>
+    <div class="prog" id="progress" data-a="go" data-route="publicar" title="Ver checklist de publicación"></div>
+    <nav class="nav" id="nav"></nav>
+  </div>
+  <div class="user" id="user-card" data-a="edit-owner" title="Editar ficha del aprendiz"></div>
+</aside>
+<div class="side-scrim" data-a="close-side"></div>
+
+<header class="top">
+  <div class="top-l">
+    <button class="icon-btn menu-btn" data-a="open-side" aria-label="Abrir menú"><span class="ms">menu</span></button>
+    <span class="sandbox-chip"><span class="dot"></span><span class="lbl">Modo Aprendizaje / Sandbox Activo</span></span>
+    <div class="vsep hide-sm"></div>
+    <div class="ses-name" id="ses-name"></div>
+  </div>
+  <div class="top-r">
+    <button class="btn btn-soft btn-sm hide" id="install-btn" data-a="install"><span class="ms sm">install_desktop</span><span class="hide-sm">Instalar app</span></button>
+    <button class="icon-btn" data-a="save-now" title="Guardar ahora (Ctrl+S)"><span class="ms">save</span></button>
+    <button class="icon-btn" data-a="help" title="Guía rápida"><span class="ms">help</span></button>
+    <button class="icon-btn" data-a="activity" title="Actividad de la sesión"><span class="ms">notifications</span><i class="notif-dot hide" id="notif-dot"></i></button>
+  </div>
+</header>
+
+<main class="view" id="view" tabindex="-1">
+  <div class="empty"><span class="ms">hourglass_top</span><p>Cargando SENAVENTAS...</p></div>
+</main>
+
+<div id="overlay-root"></div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<noscript><p style="padding:100px 20px;text-align:center">SENAVENTAS necesita JavaScript habilitado.</p></noscript>
+
+<script src="assets/js/images.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/store-css.js"></script>
+<script src="assets/js/store-render.js"></script>
+<script src="assets/js/api-sim.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
