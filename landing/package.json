@@ -1,0 +1,13 @@
+{
+  "name": "senaventas-landing",
+  "version": "1.0.0",
+  "description": "SENA VENTAS LANDING PAGE: simulador educativo para crear landing pages de captación de leads con formulario, WhatsApp Business, base de datos en Excel y enlace público funcional.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node tools/serve.mjs 8090",
+    "portable": "node tools/build-portable.mjs",
+    "test": "node tests/smoke.mjs"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,54 @@
+name: Publicar SENAVENTAS en GitHub Pages
+
+# Publica en GitHub Pages:
+#   /          → SENAVENTAS (tienda virtual), cuando existe en la raíz del repositorio
+#   /landing/  → SENA VENTAS LANDING PAGE (captación de leads)
+# Activa Pages en Settings → Pages → Source: GitHub Actions.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generar versión portable de SENA VENTAS LANDING PAGE
+        run: node landing/tools/build-portable.mjs
+      - name: Preparar sitio
+        run: |
+          mkdir -p _site
+          if [ -f index.html ]; then
+            [ -f tools/build-portable.mjs ] && node tools/build-portable.mjs
+            for f in index.html manifest.webmanifest sw.js assets dist referencias; do
+              [ -e "$f" ] && cp -r "$f" _site/
+            done
+          else
+            printf '<!DOCTYPE html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=landing/"><title>SENAVENTAS</title><a href="landing/">SENA VENTAS LANDING PAGE</a>\n' > _site/index.html
+          fi
+          mkdir -p _site/landing
+          cp -r landing/index.html landing/ver.html landing/config.js landing/manifest.webmanifest landing/sw.js landing/assets landing/dist _site/landing/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
