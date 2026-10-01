@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" fill="none">
+  <!-- Text Wordmark: MERCADOSENA ADS - Only typography, no icon/figure -->
+  <g transform="translate(10, 8)">
+    <text x="0" y="32" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.6" fill="#0F172A">MERCADO<tspan fill="#39A900">SENA</tspan></text>
+    <rect x="188" y="14" width="58" height="24" rx="6" fill="#39A900" />
+    <text x="217" y="31" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.8">ADS</text>
+    <text x="2" y="47" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="700" fill="#64748B" letter-spacing="0.6">PUBLICIDAD Y RENDIMIENTO</text>
+  </g>
+</svg>
