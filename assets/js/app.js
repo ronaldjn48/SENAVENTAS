@@ -13,15 +13,19 @@
     route: 'inicio',
     sessions: [],
     installPrompt: null,
-    ui: {
-      cfgTab: 'temas', apiTab: 'apps', device: 'desktop',
-      prodQ: '', prodCat: '', prodStatus: '', prodPage: 1, prodPer: 10, sel: new Set(),
-      orderStatus: '', draft: null, savedAt: 0, dirty: false, saveError: false,
-      liveEvents: [], unseen: 0,
-      con: { method: 'GET', path: '/api/v1/products', body: '', token: '', lang: 'curl', resp: null, busy: false, req: null },
-      busy: {}
-    }
+    user: null,
+    ui: null
   };
+  /* Estado de la interfaz: se reinicia por completo al cambiar de usuario para no arrastrar datos de otro estudiante. */
+  const freshUi = () => ({
+    cfgTab: 'temas', apiTab: 'apps', device: 'desktop',
+    prodQ: '', prodCat: '', prodStatus: '', prodPage: 1, prodPer: 10, sel: new Set(),
+    orderStatus: '', draft: null, savedAt: 0, dirty: false, saveError: false,
+    liveEvents: [], unseen: 0,
+    con: { method: 'GET', path: '/api/v1/products', body: '', token: '', lang: 'curl', resp: null, busy: false, req: null },
+    busy: {}
+  });
+  App.ui = freshUi();
 
   const ROUTES = [
     { id: 'inicio', label: 'Inicio & Sesiones', icon: 'home' },
@@ -39,10 +43,10 @@
      Estado, guardado y utilidades de interfaz
      ====================================================================== */
   const saveNow = async () => {
-    if (!App.s) return;
+    if (!App.s || !App.user) return;
     try {
       await SV.storage.put(App.s);
-      SV.storage.setLast(App.s.id);
+      SV.storage.setLast(App.s.id, App.user.id);
       App.ui.savedAt = Date.now();
       App.ui.dirty = false;
       App.ui.saveError = false;
@@ -56,6 +60,7 @@
 
   App.commit = (msg, opts = {}) => {
     const s = App.s;
+    if (!s) return;
     s.updatedAt = Date.now();
     if (msg) {
       s.activity.unshift({ at: Date.now(), text: msg });
@@ -194,7 +199,7 @@
     const bn = [['inicio', 'home', 'Inicio'], ['productos', 'inventory_2', 'Productos'], ['tienda', 'storefront', 'Tienda'], ['pedidos', 'receipt_long', 'Pedidos']];
     $('#bnav').innerHTML = bn.map(([id, i, l]) => `<a href="#/${id}" class="${App.route === id ? 'on' : ''}" data-a="go" data-route="${id}">${ic(i)}<span>${l}</span>${id === 'pedidos' && s.orders.length ? `<b>${s.orders.length}</b>` : ''}</a>`).join('') + `<button data-a="open-side" class="${['configuracion', 'api', 'publicar'].includes(App.route) ? 'on' : ''}">${ic('menu')}<span>Más</span></button>`;
     const initials = s.owner.name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
-    $('#user-card').innerHTML = `<div class="avatar">${esc(initials || 'A')}</div><div class="grow"><b>${esc(s.owner.name)}</b><small>${esc(s.owner.role)} • Ficha ${esc(s.owner.ficha)}</small></div>${ic('edit', 'sm muted')}`;
+    $('#user-card').innerHTML = `<div class="avatar">${esc(initials || 'A')}</div><div class="grow"><b>${esc(s.owner.name)}</b><small>@${esc(App.user ? App.user.username : '')} • Ficha ${esc(s.owner.ficha)}</small></div><button class="icon-btn" data-a="logout" title="Cerrar sesión" aria-label="Cerrar sesión">${ic('logout')}</button>`;
     $('#notif-dot').classList.toggle('hide', !App.ui.unseen);
     renderSaveStatus();
   };
@@ -328,6 +333,10 @@
           <div class="tip" style="padding:12px"><div class="ico" style="width:34px;height:34px">${ic('lightbulb', 'sm')}</div><p class="small"><b>Tip del instructor:</b> pide a cada aprendiz que entregue su archivo <span class="kbd">.senaventas.json</span> como evidencia de producto. Al importarlo ves la tienda, el catálogo, los pedidos y el puntaje del checklist.</p></div>
         </div>
       </div>
+    </div>
+    <div class="card mt row between">
+      <div class="row" style="flex-wrap:nowrap"><div class="avatar" style="width:46px;height:46px;border-radius:12px">${ic('person')}</div><div><b>Mi usuario: @${esc(App.user.username)}</b><div class="small muted">Tus tiendas solo se ven con tu usuario. En un equipo compartido, cierra sesión al terminar: el siguiente estudiante empieza con una versión limpia.</div></div></div>
+      <div class="row"><button class="btn btn-primary" data-a="logout">${ic('logout')} Cerrar sesión</button><button class="btn btn-danger" data-a="delete-account">${ic('person_remove')} Eliminar mi usuario y mis datos</button></div>
     </div>`;
   };
 
@@ -960,6 +969,7 @@
 
   const sessionExport = (s, asTemplate) => {
     const copy = U.clone(s);
+    copy.userId = null;
     if (asTemplate) {
       Object.assign(copy, { orders: [], apiLog: [], webhookLog: [], apiKeys: [], webhooks: [], integrations: {}, analytics: {}, published: null, publishHistory: [], activity: [{ at: Date.now(), text: 'Plantilla creada a partir de ' + s.name }] });
       copy.progress = { themeChosen: false, previewVisited: false };
@@ -994,22 +1004,22 @@
   /* ======================================================================
      Sesiones
      ====================================================================== */
-  const refreshSessions = async () => { App.sessions = await SV.storage.list(); };
+  const refreshSessions = async () => { App.sessions = App.user ? await SV.storage.list(App.user.id) : []; };
 
   const openSession = async (id) => {
     if (App.ui.dirty) await saveNow();
-    const data = await SV.storage.get(id);
+    const data = await SV.storage.get(id, App.user.id);
     if (!data) { toast('No se encontró la sesión', 'err'); return; }
     App.s = SV.normalizeSession(data);
     App.ui.sel = new Set(); App.ui.liveEvents = []; App.ui.con.resp = null; App.ui.con.token = ''; App.ui.unseen = 0;
-    SV.storage.setLast(id);
+    SV.storage.setLast(id, App.user.id);
     await refreshSessions();
     render();
   };
 
-  const createSession = async (themeId, owner) => {
+  const createSession = async (themeId, owner, opts = {}) => {
     if (App.s && App.ui.dirty) await saveNow();
-    const s = SV.newSession(themeId, owner);
+    const s = SV.newSession(themeId, owner, Object.assign({ blank: true }, opts, { userId: App.user.id }));
     App.s = s;
     App.ui.sel = new Set(); App.ui.liveEvents = []; App.ui.con.resp = null; App.ui.con.token = '';
     await saveNow();
@@ -1023,6 +1033,7 @@
       const raw = JSON.parse(txt);
       const sess = SV.normalizeSession(raw.session || raw);
       sess.id = U.uid('ses_');
+      sess.userId = App.user.id;
       sess.name = raw.kind === 'plantilla' ? sess.name.replace(/ \(plantilla\)$/, '') + ' · copia' : sess.name + ' (importada)';
       sess.updatedAt = Date.now();
       sess.activity.unshift({ at: Date.now(), text: 'Sesión importada desde ' + file.name });
@@ -1045,10 +1056,13 @@
   const newSessionModal = () => {
     const o = App.s ? App.s.owner : {};
     const root = App.modal({
-      title: 'Nueva tienda virtual', sub: 'Se crea una sesión nueva con contenido de ejemplo del tema elegido. Tu sesión actual queda guardada.', wide: true,
+      title: 'Nueva tienda virtual', sub: 'Se crea una sesión nueva. Tu sesión actual queda guardada.', wide: true,
       body: `<form class="stack" id="new-form">
-        <div class="frow">${field('Nombre del aprendiz o responsable', `<input class="input" name="name" required value="${esc(o.name && o.name !== 'Aprendiz SENA' ? o.name : '')}" placeholder="Ej: Carlos Mendoza">`, '', true)}${field('Ficha', `<input class="input" name="ficha" value="${esc(o.ficha || '')}" placeholder="27118">`)}</div>
+        <div class="frow">${field('Nombre del aprendiz o responsable', `<input class="input" name="name" required value="${esc(o.name && o.name !== 'Aprendiz SENA' ? o.name : App.user.username)}" placeholder="Ej: Carlos Mendoza">`, '', true)}${field('Ficha', `<input class="input" name="ficha" value="${esc(o.ficha || '')}" placeholder="27118">`)}</div>
         <div class="frow">${field('Programa de formación', `<input class="input" name="programa" value="${esc(o.programa || 'Gestión de Mercados')}">`)}${field('Instructor(a)', `<input class="input" name="instructor" value="${esc(o.instructor || '')}" placeholder="Opcional">`)}</div>
+        <div class="field"><label>Contenido inicial</label><div class="grid g2" style="gap:10px">
+          <label class="color-opt"><input type="radio" name="content" value="blank" checked style="accent-color:var(--primary-c)"><div><b>Desde cero</b><small>Sin productos ni textos: tú lo construyes todo</small></div></label>
+          <label class="color-opt"><input type="radio" name="content" value="example" style="accent-color:var(--primary-c)"><div><b>Con ejemplos del tema</b><small>Catálogo y textos de muestra para practicar</small></div></label></div></div>
         <div class="field"><label>Tema de partida</label><div class="grid g3" style="gap:10px">${SV.THEMES.map((t, i) => `<label class="color-opt" style="flex-direction:column;align-items:stretch;gap:8px"><div class="row" style="flex-wrap:nowrap"><input type="radio" name="theme" value="${t.id}" ${i === 0 ? 'checked' : ''} style="accent-color:var(--primary-c)"><b>${esc(t.name)}</b></div><div style="height:30px;border-radius:6px;background:linear-gradient(90deg,${t.vars.primary},${t.vars.accent})"></div><small>${esc(t.tag)}</small></label>`).join('')}</div></div>
       </form>`,
       foot: `<button class="btn btn-soft" data-a="close-overlay">Cancelar</button><button class="btn btn-primary" form="new-form" type="submit">${ic('add')} Crear tienda</button>`
@@ -1056,7 +1070,7 @@
     root.querySelector('#new-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const f = e.target;
-      await createSession(f.theme.value, { name: f.name.value.trim(), ficha: f.ficha.value.trim() || '27118', programa: f.programa.value.trim(), instructor: f.instructor.value.trim() });
+      await createSession(f.theme.value, { name: f.name.value.trim() || App.user.username, ficha: f.ficha.value.trim() || '27118', programa: f.programa.value.trim(), instructor: f.instructor.value.trim() }, { blank: f.content.value === 'blank' });
       App.closeOverlay();
       go('inicio');
       toast('Tienda creada. ¡Empieza por la identidad de marca!');
@@ -1118,7 +1132,7 @@
   A['import-session'] = () => pickFile('.json,application/json', importFile);
   A['open-session'] = (el) => openSession(el.dataset.id);
   A['dup-session'] = async (el) => {
-    const src = el.dataset.id === App.s.id ? App.s : await SV.storage.get(el.dataset.id);
+    const src = el.dataset.id === App.s.id ? App.s : await SV.storage.get(el.dataset.id, App.user.id);
     const copy = U.clone(src);
     copy.id = U.uid('ses_'); copy.name = src.name + ' (copia)'; copy.createdAt = copy.updatedAt = Date.now();
     await SV.storage.put(copy);
@@ -1126,7 +1140,7 @@
     toast('Sesión duplicada');
   };
   A['export-session'] = async (el) => {
-    const src = el.dataset.id === App.s.id ? App.s : await SV.storage.get(el.dataset.id);
+    const src = el.dataset.id === App.s.id ? App.s : await SV.storage.get(el.dataset.id, App.user.id);
     U.download(U.slug(src.name) + '.senaventas.json', JSON.stringify(sessionExport(src, false), null, 2), 'application/json');
     toast('Respaldo descargado');
   };
@@ -1135,13 +1149,45 @@
     const id = el.dataset.id;
     const info = App.sessions.find((x) => x.id === id);
     if (!(await App.confirm('Eliminar sesión', `Se eliminará <b>${esc(info ? info.name : '')}</b> de este navegador. Esta acción no se puede deshacer. Te recomendamos exportar un respaldo antes.`, { ok: 'Eliminar', danger: true }))) return;
-    await SV.storage.remove(id);
+    await SV.storage.remove(id, App.user.id);
     await refreshSessions();
     if (id === App.s.id) {
       if (App.sessions.length) await openSession(App.sessions[0].id);
-      else { await createSession('minimal'); render(); }
+      else { await createSession('minimal', { name: App.user.username }); render(); }
     } else render();
     toast('Sesión eliminada');
+  };
+  /* Cierre de sesión: guarda, limpia toda la memoria de la interfaz y vuelve al acceso. */
+  const leave = async (notice) => {
+    if (App.s && App.ui.dirty) await saveNow();
+    SV.auth.logout();
+    App.closeOverlay(true);
+    const pop = $('.popover'); if (pop) pop.remove();
+    document.body.classList.remove('side-open');
+    App.s = null; App.user = null; App.sessions = []; App.ui = freshUi(); App.route = 'inicio';
+    ['#view', '#nav', '#user-card', '#progress', '#bnav', '#ses-name'].forEach((q) => { const e = $(q); if (e) e.innerHTML = ''; });
+    history.replaceState(null, '', location.pathname + location.search + '#/inicio');
+    SV.login.show(onAuth, notice);
+  };
+  A['logout'] = () => {
+    const root = App.modal({
+      title: 'Cerrar sesión', sub: 'Tu trabajo ya está guardado en este equipo.',
+      body: `<p>Al salir, la próxima persona que entre empezará con una versión limpia. Para continuar en otro equipo, descarga tu respaldo y súbelo desde <b>Inicio → Importar</b> con tu usuario.</p>`,
+      foot: `<button class="btn btn-soft" data-a="close-overlay">Cancelar</button><button class="btn btn-soft" data-role="dl">${ic('download')} Descargar respaldo y salir</button><button class="btn btn-primary" data-role="out">${ic('logout')} Salir</button>`
+    });
+    root.querySelector('[data-role=out]').addEventListener('click', () => leave());
+    root.querySelector('[data-role=dl]').addEventListener('click', () => {
+      U.download(U.slug(App.s.name) + '.senaventas.json', JSON.stringify(sessionExport(App.s, false), null, 2), 'application/json');
+      leave();
+    });
+  };
+  A['delete-account'] = async () => {
+    if (!(await App.confirm('Eliminar mi usuario', `Se borran <b>@${esc(App.user.username)}</b> y todas sus tiendas de este equipo. No se puede deshacer. Descarga tus respaldos antes si los necesitas.`, { ok: 'Eliminar todo', danger: true }))) return;
+    const id = App.user.id;
+    await SV.storage.removeAll(id);
+    SV.auth.remove(id);
+    App.ui.dirty = false;
+    await leave('Tu usuario y tus datos se eliminaron de este equipo.');
   };
   A['rename-session'] = () => {
     const root = App.modal({ title: 'Renombrar sesión', body: `<input class="input" id="ren" value="${esc(App.s.name)}" maxlength="80">`, foot: `<button class="btn btn-soft" data-a="close-overlay">Cancelar</button><button class="btn btn-primary" data-role="ok">Guardar</button>` });
@@ -1716,25 +1762,43 @@ CAF-010;Café Tostado 250g;Cafés &amp; Bebidas;18000;9500;30;5;publicado;https:
   };
   SV.watchIconFont = watchIconFont;
 
+  /* Abre el espacio del usuario: sus sesiones o, si es nuevo, una tienda en blanco. */
+  const startUser = async (acc, fresh) => {
+    App.user = acc;
+    App.ui = freshUi();
+    App.s = null;
+    await refreshSessions();
+    const last = SV.storage.getLast(acc.id);
+    let data = last ? await SV.storage.get(last, acc.id) : null;
+    if (!data && App.sessions.length) data = await SV.storage.get(App.sessions[0].id, acc.id);
+    if (data) {
+      try { App.s = SV.normalizeSession(data); }
+      catch (e) { console.error(e); }
+    }
+    if (!App.s) {
+      App.s = SV.newSession('minimal', { name: acc.username }, { blank: true, userId: acc.id });
+      await saveNow();
+      await refreshSessions();
+    }
+    App.ui.savedAt = App.s.updatedAt;
+    if (fresh) { App.route = 'inicio'; history.replaceState(null, '', location.pathname + location.search + '#/inicio'); }
+    else { const r = location.hash.replace(/^#\/?/, ''); App.route = VIEWS[r] ? r : 'inicio'; }
+    render();
+  };
+
+  const onAuth = async (acc, info) => {
+    await startUser(acc, true);
+    toast(info && info.isNew ? '¡Listo, ' + acc.username + '! Tu tienda parte desde cero.' : 'Hola de nuevo, ' + acc.username, 'ok', 'waving_hand');
+  };
+
   const boot = async () => {
     watchIconFont(document);
     if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
       navigator.serviceWorker.register('sw.js').catch((err) => console.warn('Service worker no registrado', err));
     }
-    await refreshSessions();
-    const last = SV.storage.getLast();
-    let data = null;
-    if (last) data = await SV.storage.get(last);
-    if (!data && App.sessions.length) data = await SV.storage.get(App.sessions[0].id);
-    if (data) {
-      try { App.s = SV.normalizeSession(data); }
-      catch (e) { console.error(e); data = null; }
-    }
-    if (!App.s) { App.s = SV.newSession('minimal'); await saveNow(); await refreshSessions(); }
-    App.ui.savedAt = App.s.updatedAt;
-    const r = location.hash.replace(/^#\/?/, '');
-    App.route = VIEWS[r] ? r : 'inicio';
-    render();
+    const acc = SV.auth.current();
+    if (acc) await startUser(acc, false);
+    else SV.login.show(onAuth);
   };
   boot();
 })(window.SV);

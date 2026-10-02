@@ -187,16 +187,99 @@ window.SV = window.SV || {};
     return prefix + s;
   };
 
+  /* Hash simple y determinista (no es criptográfico: el acceso es solo para separar el trabajo de cada estudiante). */
+  U.simpleHash = (str) => {
+    let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+    for (let i = 0; i < str.length; i++) {
+      const c = str.charCodeAt(i);
+      h1 = Math.imul(h1 ^ c, 2654435761); h2 = Math.imul(h2 ^ c, 1597334677);
+    }
+    h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+    return (h2 >>> 0).toString(16).padStart(8, '0') + (h1 >>> 0).toString(16).padStart(8, '0');
+  };
+
+  /* ---------- Usuarios del equipo (sin verificación de correo) ---------- */
+  const ACC_KEY = 'sv:accounts';
+  const USER_KEY = 'sv:user';
+  let memAccounts = {};
+  let memUser = null;
+  const readAcc = () => { try { return JSON.parse(localStorage.getItem(ACC_KEY) || '{}') || {}; } catch (e) { return memAccounts; } };
+  const writeAcc = (o) => { memAccounts = o; try { localStorage.setItem(ACC_KEY, JSON.stringify(o)); } catch (e) { /* solo memoria */ } };
+  const keyOf = (u) => String(u || '').trim().toLowerCase();
+  const hashPw = (id, pw) => U.simpleHash(id + '\u0000' + pw);
+
+  SV.auth = {
+    keyOf,
+    validUsername: (u) => /^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ._\- ]{3,24}$/.test(String(u || '').trim()),
+    exists: (u) => !!readAcc()[keyOf(u)],
+    count: () => Object.keys(readAcc()).length,
+    register(username, password) {
+      const name = String(username || '').trim().replace(/\s+/g, ' ');
+      if (!SV.auth.validUsername(name)) return { ok: false, error: 'El usuario debe tener entre 3 y 24 caracteres (letras, números, punto, guion o espacio).' };
+      if (String(password || '').length < 4) return { ok: false, error: 'La contraseña debe tener al menos 4 caracteres.' };
+      const all = readAcc(); const id = keyOf(name);
+      if (all[id]) return { ok: false, error: 'Ese usuario ya existe en este equipo. Elige otro o inicia sesión.', code: 'exists' };
+      all[id] = { id, username: name, passHash: hashPw(id, password), createdAt: Date.now() };
+      writeAcc(all);
+      return { ok: true, account: all[id] };
+    },
+    login(username, password) {
+      const id = keyOf(username); const acc = readAcc()[id];
+      if (!acc) return { ok: false, error: 'No existe ese usuario en este equipo. Crea uno nuevo.', code: 'no_user' };
+      if (acc.passHash !== hashPw(id, password)) return { ok: false, error: 'Contraseña incorrecta.', code: 'bad_pass' };
+      return { ok: true, account: acc };
+    },
+    /* La sesión dura mientras la pestaña esté abierta; "mantener" la conserva en el equipo. */
+    setCurrent(acc, keep) {
+      try { sessionStorage.setItem(USER_KEY, acc.id); } catch (e) { memUser = acc.id; }
+      try { if (keep) localStorage.setItem(USER_KEY, acc.id); else localStorage.removeItem(USER_KEY); } catch (e) { /* sin almacenamiento */ }
+    },
+    current() {
+      let id = memUser;
+      try { id = sessionStorage.getItem(USER_KEY) || localStorage.getItem(USER_KEY) || id; } catch (e) { /* sin almacenamiento */ }
+      return id ? (readAcc()[id] || null) : null;
+    },
+    logout() {
+      memUser = null;
+      try { sessionStorage.removeItem(USER_KEY); } catch (e) { /* nada */ }
+      try { localStorage.removeItem(USER_KEY); } catch (e) { /* nada */ }
+    },
+    remove(id) { const all = readAcc(); delete all[id]; writeAcc(all); SV.auth.logout(); }
+  };
+
   /* ---------- Modelo de sesión ---------- */
   SV.SCHEMA_VERSION = 2;
 
-  SV.newSession = (themeId = 'minimal', owner = {}) => {
-    const preset = SV.util.clone(SV.PRESETS[themeId] || SV.PRESETS.minimal);
-    const now = Date.now();
+  /* Tienda en blanco: conserva el diseño del tema, pero sin productos, pedidos ni textos de ejemplo. */
+  const blankPreset = (themeId, ownerName) => {
+    const base = SV.util.clone(SV.PRESETS[themeId] || SV.PRESETS.minimal);
+    const nice = String(ownerName || 'Aprendiz').split(/[\s._-]+/).filter(Boolean).map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    const name = 'Tienda de ' + nice;
+    base.store = Object.assign(base.store, {
+      name, slogan: '', announcement: '', heroBadge: 'Tienda virtual', heroTitle: 'Bienvenido a', heroHighlight: name,
+      heroText: 'Escribe aquí la propuesta de valor de tu tienda.', heroImage: '', heroCardTitle: 'Producto destacado', heroCardText: 'Cuéntale al cliente por qué comprar',
+      ctaPrimary: 'Ver productos', ctaSecondary: 'Ver carrito',
+      promo: { enabled: false, badge: 'Promoción', title: 'Nombre de tu promoción', text: 'Describe tu kit o descuento.', price: 0, compareAt: 0, productIds: [] },
+      trustTitle: 'Por qué comprar con nosotros', trustText: 'Cuenta tus valores de marca.',
+      trust: [{ icon: 'verified', title: 'Calidad', text: 'Describe tu garantía.' }, { icon: 'local_shipping', title: 'Envíos', text: 'Explica cómo entregas.' }, { icon: 'support_agent', title: 'Atención', text: 'Indica cómo te contactan.' }],
+      aboutTitle: 'Sobre nosotros', aboutText: 'Cuenta la historia de tu emprendimiento.',
+      freeShippingThreshold: 0, shippingFlat: 10000
+    });
+    base.categories = ['General'];
+    base.products = [];
+    base.coupons = [];
+    return base;
+  };
+
+  SV.newSession = (themeId = 'minimal', owner = {}, opts = {}) => {
     const ownerName = owner.name || 'Aprendiz SENA';
+    const preset = opts.blank ? blankPreset(themeId, ownerName) : SV.util.clone(SV.PRESETS[themeId] || SV.PRESETS.minimal);
+    const now = Date.now();
     return {
       schema: SV.SCHEMA_VERSION,
       id: U.uid('ses_'),
+      userId: opts.userId || null,
       name: owner.sessionName || preset.store.name,
       createdAt: now,
       updatedAt: now,
@@ -213,7 +296,7 @@ window.SV = window.SV || {};
         themeId,
         brandColor: '',
         currency: 'COP',
-        subdomain: U.slug(ownerName.split(' ')[0]) + '-' + U.slug(preset.store.name).split('-')[0],
+        subdomain: opts.blank ? U.slug(ownerName) + '-tienda' : U.slug(ownerName.split(' ')[0]) + '-' + U.slug(preset.store.name).split('-')[0],
         whatsapp: '573001234567',
         email: 'contacto@tienda-sena.edu.co',
         city: 'Bogotá D.C.',
@@ -231,7 +314,7 @@ window.SV = window.SV || {};
       apiLog: [],
       orders: [],
       analytics: {},
-      activity: [{ at: now, text: 'Sesión creada con el tema ' + ((SV.THEMES.find((t) => t.id === themeId) || {}).name || themeId) }],
+      activity: [{ at: now, text: (opts.blank ? 'Tienda nueva desde cero con el tema ' : 'Sesión creada con el tema ') + ((SV.THEMES.find((t) => t.id === themeId) || {}).name || themeId) }],
       progress: { themeChosen: false, previewVisited: false },
       published: null
     };
@@ -276,40 +359,42 @@ window.SV = window.SV || {};
   const lsKey = (id) => 'sv:session:' + id;
   const lsIndex = () => { try { return JSON.parse(localStorage.getItem('sv:index') || '[]'); } catch (e) { return []; } };
 
+  const summary = (v) => ({ id: v.id, name: v.name, updatedAt: v.updatedAt, createdAt: v.createdAt, themeId: v.store.themeId, owner: v.owner, products: v.products.length, orders: v.orders.length, published: v.published, storeName: v.store.name, icon: v.store.icon, userId: v.userId || null });
+  const mine = (v, userId) => !!v && !!userId && v.userId === userId;
+
   SV.storage = {
-    async list() {
+    /* Solo devuelve sesiones del usuario indicado: cada estudiante ve únicamente su trabajo. */
+    async list(userId) {
       const db = await openDB();
       if (db) {
         return new Promise((res) => {
           const out = [];
-          const tx = db.transaction(STORE, 'readonly');
-          const cur = tx.objectStore(STORE).openCursor();
+          const cur = db.transaction(STORE, 'readonly').objectStore(STORE).openCursor();
           cur.onsuccess = () => {
             const c = cur.result;
-            if (c) {
-              const v = c.value;
-              out.push({ id: v.id, name: v.name, updatedAt: v.updatedAt, createdAt: v.createdAt, themeId: v.store.themeId, owner: v.owner, products: v.products.length, orders: v.orders.length, published: v.published, storeName: v.store.name, icon: v.store.icon });
-              c.continue();
-            } else res(out.sort((a, b) => b.updatedAt - a.updatedAt));
+            if (c) { if (mine(c.value, userId)) out.push(summary(c.value)); c.continue(); }
+            else res(out.sort((a, b) => b.updatedAt - a.updatedAt));
           };
           cur.onerror = () => res(out);
         });
       }
-      return lsIndex().map((id) => { try { const v = JSON.parse(localStorage.getItem(lsKey(id))); return { id: v.id, name: v.name, updatedAt: v.updatedAt, createdAt: v.createdAt, themeId: v.store.themeId, owner: v.owner, products: v.products.length, orders: v.orders.length, published: v.published, storeName: v.store.name, icon: v.store.icon }; } catch (e) { return null; } })
+      return lsIndex().map((id) => { try { const v = JSON.parse(localStorage.getItem(lsKey(id))); return mine(v, userId) ? summary(v) : null; } catch (e) { return null; } })
         .filter(Boolean).sort((a, b) => b.updatedAt - a.updatedAt);
     },
-    async get(id) {
+    async get(id, userId) {
       const db = await openDB();
+      let v = null;
       if (db) {
-        return new Promise((res) => {
+        v = await new Promise((res) => {
           const req = db.transaction(STORE, 'readonly').objectStore(STORE).get(id);
           req.onsuccess = () => res(req.result || null);
           req.onerror = () => res(null);
         });
-      }
-      try { return JSON.parse(localStorage.getItem(lsKey(id))); } catch (e) { return null; }
+      } else { try { v = JSON.parse(localStorage.getItem(lsKey(id))); } catch (e) { v = null; } }
+      return mine(v, userId) ? v : null;
     },
     async put(session) {
+      if (!session.userId) throw new Error('La sesión no tiene usuario.');
       const db = await openDB();
       if (db) {
         return new Promise((res, rej) => {
@@ -324,7 +409,8 @@ window.SV = window.SV || {};
       if (!idx.includes(session.id)) { idx.push(session.id); localStorage.setItem('sv:index', JSON.stringify(idx)); }
       return true;
     },
-    async remove(id) {
+    async remove(id, userId) {
+      if (!(await SV.storage.get(id, userId))) return false;
       const db = await openDB();
       if (db) {
         return new Promise((res) => {
@@ -338,7 +424,12 @@ window.SV = window.SV || {};
       localStorage.setItem('sv:index', JSON.stringify(lsIndex().filter((x) => x !== id)));
       return true;
     },
-    getLast() { try { return localStorage.getItem('sv:last'); } catch (e) { return null; } },
-    setLast(id) { try { localStorage.setItem('sv:last', id); } catch (e) { /* sin almacenamiento */ } }
+    async removeAll(userId) {
+      const list = await SV.storage.list(userId);
+      for (const x of list) await SV.storage.remove(x.id, userId);
+      try { localStorage.removeItem('sv:last:' + userId); } catch (e) { /* nada */ }
+    },
+    getLast(userId) { try { return localStorage.getItem('sv:last:' + userId); } catch (e) { return null; } },
+    setLast(id, userId) { try { localStorage.setItem('sv:last:' + userId, id); } catch (e) { /* sin almacenamiento */ } }
   };
 })(window.SV);

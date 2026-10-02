@@ -1,5 +1,5 @@
 /* SENAVENTAS · Service worker: permite instalar la app y usarla sin conexión. */
-const VERSION = 'senaventas-v1.0.0';
+const VERSION = 'senaventas-v1.1.0';
 const SHELL = [
   './',
   'index.html',
@@ -11,6 +11,7 @@ const SHELL = [
   'assets/js/store-css.js',
   'assets/js/store-render.js',
   'assets/js/api-sim.js',
+  'assets/js/login.js',
   'assets/js/app.js',
   'assets/icons/icon.svg',
   'assets/icons/icon-192.png',

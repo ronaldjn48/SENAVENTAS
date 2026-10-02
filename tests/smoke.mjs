@@ -27,7 +27,15 @@ page.on('console', (m) => { if (m.type() === 'error' && !/ERR_|net::|Failed to l
 
 console.log('1. Arranque y navegación');
 await page.goto(BASE + '/index.html#/inicio');
+await page.waitForSelector('#login');
+ok(await page.locator('#view .hero-card').count() === 0 && !(await page.locator('#nav a').count()), 'sin usuario solo se ve la pantalla de acceso');
+await page.screenshot({ path: OUT + '/00-login.png' });
+await page.fill('#lg-user', 'laura.gomez');
+await page.fill('#lg-pass', '1234');
+await page.click('#login-form button[type=submit]');
 await page.waitForSelector('.hero-card');
+ok(await page.evaluate(() => SV.app.s.products.length === 0 && SV.app.s.orders.length === 0), 'usuario nuevo empieza con una tienda en blanco (0 productos)');
+ok(await page.locator('.ses-card').count() === 1, 'una sola sesión inicial');
 ok(await page.locator('#nav a').count() === 7, 'menú con 7 secciones');
 await page.screenshot({ path: OUT + '/01-inicio.png', fullPage: true });
 const [portable] = await Promise.all([page.waitForEvent('download'), page.click('[data-a="portable"]')]);
@@ -51,6 +59,12 @@ await page.click('[data-a="personalize"]');
 await page.click('[data-a="cfg-tab"][data-tab="plugins"]');
 await page.click('[data-a="toggle-plugin"][data-id="seo"]');
 ok(await page.locator('[data-a="toggle-plugin"][data-id="seo"].on').count() === 1, 'plugin SEO activado');
+
+await page.click('[data-a="cfg-tab"][data-tab="temas"]');
+await page.click('[data-a="activate-theme"][data-id="boutique"]');
+await page.click('[data-role="full"]');
+await page.waitForTimeout(300);
+ok(await page.evaluate(() => SV.app.s.products.length > 3), 'se pueden cargar ejemplos del tema cuando se quiere');
 
 console.log('3. Productos');
 await page.click('#nav a[data-route="productos"]');
@@ -155,6 +169,35 @@ await page.reload();
 await page.waitForSelector('#nav a');
 await page.click('#nav a[data-route="productos"]');
 ok((await page.locator('[data-partial="prodtable"]').innerText()).includes('Panela'), 'la sesión se conserva al recargar');
+
+console.log('7b. Acceso y aislamiento entre estudiantes');
+const lauraSession = await page.evaluate(() => SV.app.s.id);
+await page.click('#user-card [data-a="logout"]');
+await page.click('[data-role="out"]');
+await page.waitForSelector('#login');
+ok(await page.locator('#view').innerText() === '', 'al salir se limpia la pantalla');
+await page.click('.login-tabs [data-mode="login"]');
+await page.fill('#lg-user', 'laura.gomez');
+await page.fill('#lg-pass', 'mala');
+await page.click('#login-form button[type=submit]');
+ok((await page.locator('#lg-msg').innerText()).includes('Contraseña incorrecta'), 'contraseña incorrecta se rechaza');
+await page.click('.login-tabs [data-mode="register"]');
+await page.fill('#lg-user', 'pedro.ruiz');
+await page.fill('#lg-pass', 'abcd');
+await page.click('#login-form button[type=submit]');
+await page.waitForSelector('.hero-card');
+ok(await page.evaluate(() => SV.app.s.products.length === 0 && SV.app.sessions.length === 1), 'el siguiente estudiante recibe una versión limpia');
+ok(!(await page.locator('body').innerText()).toLowerCase().includes('laura'), 'no aparece nada del estudiante anterior');
+ok(await page.evaluate(async (id) => (await SV.storage.get(id, SV.app.user.id)) === null, lauraSession), 'las sesiones de otro usuario no se pueden abrir');
+await page.click('#user-card [data-a="logout"]');
+await page.click('[data-role="out"]');
+await page.waitForSelector('#login');
+await page.fill('#lg-user', 'Laura.Gomez');
+await page.fill('#lg-pass', '1234');
+await page.click('#login-form button[type=submit]');
+await page.waitForSelector('.hero-card');
+await page.click('#nav a[data-route="productos"]');
+ok((await page.locator('[data-partial="prodtable"]').innerText()).includes('Panela'), 'cada estudiante recupera su propio trabajo');
 
 console.log('8. Vista móvil');
 await page.setViewportSize({ width: 390, height: 844 });

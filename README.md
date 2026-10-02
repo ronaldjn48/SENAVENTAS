@@ -4,6 +4,19 @@ Simulador educativo para crear, configurar, probar y publicar tiendas virtuales 
 
 La interfaz conserva la línea visual de los diseños de referencia (carpeta `referencias/`): paleta verde SENA, tipografía Plus Jakarta Sans, íconos Material Symbols, tarjetas con esquinas redondeadas y los presets Minimal Clean, Boutique Moderna, Catálogo Mayorista, Aura Gold (joyería) y Botánica Pura (cosmética).
 
+## Acceso por usuario
+
+Al abrir la app aparece una pantalla para **crear usuario** o **ingresar**. No pide correo ni verificación: solo un usuario (3 a 24 caracteres) y una contraseña (mínimo 4).
+
+* Cada usuario tiene su propio espacio. Ninguna persona ve las tiendas, pedidos o llaves de otra.
+* Un usuario nuevo empieza **desde cero**: tienda en blanco, sin productos, pedidos ni textos de ejemplo. Al crear una tienda nueva puede elegir "Desde cero" o "Con ejemplos del tema".
+* La sesión se cierra al cerrar la pestaña. En equipos de uso personal puede marcar "Mantener mi sesión iniciada".
+* **Cerrar sesión** guarda el trabajo y limpia la pantalla, así el siguiente estudiante recibe una versión limpia. El archivo portable y el paquete de instalación nunca llevan datos de nadie.
+* Para continuar en otro equipo: descargar el respaldo (`.senaventas.json`) al cerrar sesión, crear el mismo usuario allí e importarlo desde **Inicio → Importar**. El archivo no incluye el usuario ni la contraseña.
+* **Eliminar mi usuario y mis datos** (en Inicio) borra la cuenta y sus tiendas de ese equipo. Útil al final de la clase en equipos compartidos.
+
+Importante: es un acceso didáctico. Los usuarios y los datos viven en el navegador de cada equipo y la contraseña no se cifra de forma segura, por lo que no sirve para proteger información sensible.
+
 ## Qué incluye
 
 | Módulo | Funciones |
@@ -46,7 +59,7 @@ Los aprendices entran con la IP del equipo del instructor y el puerto 8080. Requ
 
 ## Dónde se guarda la información
 
-Cada sesión se guarda en el navegador del equipo (IndexedDB, con respaldo en localStorage) cada vez que haces un cambio. Para cambiar de equipo o entregar una evidencia, exporta la sesión desde **Inicio** y vuelve a importarla. El sitio publicado guarda los pedidos de cada visitante en su propio navegador.
+Cada sesión se guarda en el navegador del equipo (IndexedDB, con respaldo en localStorage) y queda asociada a tu usuario, cada vez que haces un cambio. Para cambiar de equipo o entregar una evidencia, exporta la sesión desde **Inicio** y vuelve a importarla. El sitio publicado guarda los pedidos de cada visitante en su propio navegador.
 
 ## Ruta de aprendizaje sugerida
 
@@ -98,6 +111,7 @@ assets/js/core.js          Utilidades, modelo de sesión y almacenamiento
 assets/js/store-css.js     Estilos de la tienda generada
 assets/js/store-render.js  Generador de la tienda (vista previa y sitio publicado)
 assets/js/api-sim.js       API REST, webhooks e integraciones simuladas
+assets/js/login.js         Pantalla de acceso (crear usuario e ingresar)
 assets/js/app.js           Vistas y lógica del creador
 tools/serve.mjs            Servidor local sin dependencias
 tools/build-portable.mjs   Genera dist/senaventas-portable.html
