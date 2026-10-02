@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"background":"#f8f9ff","surface":"#f8f9ff","on-primary-container":"#a1ffb7","secondary-container":"#adedd3","primary":"#005f2e","on-error":"#ffffff","surface-container":"#e5eeff","primary-container":"#007a3d","outline":"#6f7a6f","primary-fixed-dim":"#78db92","tertiary-fixed":"#6ffbbe","surface-bright":"#f8f9ff","on-secondary-container":"#306d58","on-tertiary-fixed-variant":"#005236","surface-container-highest":"#d3e4fe","on-secondary":"#ffffff","surface-container-low":"#eff4ff","on-surface":"#0b1c30","surface-dim":"#cbdbf5","error-container":"#ffdad6","secondary-fixed":"#b0f0d6","surface-container-high":"#dce9ff","on-primary-fixed-variant":"#005227","on-secondary-fixed":"#002117","surface-variant":"#d3e4fe","on-surface-variant":"#3f493f","on-primary":"#ffffff","on-background":"#0b1c30","inverse-surface":"#213145","on-error-container":"#93000a","tertiary":"#005e3f","on-tertiary":"#ffffff","inverse-on-surface":"#eaf1ff","secondary-fixed-dim":"#95d3ba","surface-container-lowest":"#ffffff","tertiary-container":"#007952","on-primary-fixed":"#00210c","tertiary-fixed-dim":"#4edea3","inverse-primary":"#78db92","on-secondary-fixed-variant":"#0b513d","outline-variant":"#becabc","error":"#ba1a1a","secondary":"#2b6954","on-tertiary-fixed":"#002113","on-tertiary-container":"#99ffcd","primary-fixed":"#94f8ad","surface-tint":"#006d36"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","space-sm":"0.5rem","space-xl":"2.5rem","gutter-mobile":"1rem","space-md":"1rem","space-lg":"1.5rem","space-xs":"0.25rem","gutter":"1.5rem","margin-mobile":"1rem"},"fontFamily":{"display-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"]},"fontSize":{"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"title-md":["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"500"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="SENAVENTAS Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Xx67cZ7cWiJMIaJt52HED6-6sIbbNQzPl-_wUNkGCOKQItR5o8CS-s8SwP8nXhI2Cah9IjGJ2NQjbw1LdyauGrlASo6Cjcf-iG_ek8F0r1Y97BKQp7wbhfMxq5h-_zF59MsXb15FFKVJxejc-L03sJHqcOsWK-5WAjghMjO5_N-o2N0d1BlZqihmUvMgJ30nPnrrf1M3vJxAoBkvUt6hOFyy74ZehJ1j5AstaoXcJGSPOM_mhbb-GY_wnW"/><span class="font-title-md text-title-md text-primary tracking-tight">SENAVENTAS</span></div></div><div class="px-space-md py-space-sm"><div class="bg-secondary-container/50 px-space-md py-space-sm rounded-lg flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-secondary-container uppercase font-bold tracking-wider">Taller E-Commerce</span><span class="font-label-sm text-label-sm text-secondary font-semibold">65%</span></div><div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full w-2/3"></div></div><span class="font-body-sm text-body-sm text-on-surface-variant">Paso 3 de 5: Catálogo Virtual</span></div></div><nav class="flex flex-col gap-space-xs px-space-md mt-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="configuracion" href="#"><span class="material-symbols-outlined text-title-md">tune</span><span class="font-label-lg text-label-lg">Configuración &amp; Temas</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="productos" href="#"><span class="material-symbols-outlined text-title-md">inventory_2</span><span class="font-label-lg text-label-lg">Productos &amp; Inventario</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm transition-all bg-primary-container text-on-primary-container font-semibold rounded-lg" data-path="tienda-en-vivo" href="#"><span class="material-symbols-outlined text-title-md">storefront</span><span class="font-label-lg text-label-lg">Mi Tienda en Vivo</span></a></nav></div><div class="p-space-md"><div class="bg-surface-container-low p-space-md rounded-xl flex items-center gap-space-md"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKaysgB1KGfHnZ59V4ByrGZ7HpkNqPhImGxxKp_8vfYaHl_C1Oih6UD7Lkm-IYXZmuYxVNpQ4qBGPA8wVCP8frWUz0WSQR_TYOOvCsB4L5ajNppKNRIJkChbgHmK78A5ZdIdGooYJ0tHFoNmeBZsQnQsyY2QzdaUJ9xDq9JBmJTyMiAiX4DnLe__mgNft2CNguQhfFH_aoDSdUBqce6licHgC4YwfPrRW0f3JYCoKdFSQFba1dGCDOLA"/><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface truncate">Carlos Mendoza</span><span class="font-body-sm text-body-sm text-on-surface-variant truncate">Aprendiz SENA • Ficha 27118</span></div><span class="material-symbols-outlined text-on-surface-variant text-label-lg cursor-pointer hover:text-on-surface">more_vert</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-sm"><span class="inline-flex items-center gap-1.5 px-space-md py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>Modo Aprendizaje / Sandbox Activo</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-title-md p-space-xs hover:text-on-surface cursor-pointer rounded-lg hover:bg-surface-container-high transition-colors">help_outline</span><span class="material-symbols-outlined text-title-md p-space-xs hover:text-on-surface cursor-pointer rounded-lg hover:bg-surface-container-high transition-colors">notifications</span></div><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKaysgB1KGfHnZ59V4ByrGZ7HpkNqPhImGxxKp_8vfYaHl_C1Oih6UD7Lkm-IYXZmuYxVNpQ4qBGPA8wVCP8frWUz0WSQR_TYOOvCsB4L5ajNppKNRIJkChbgHmK78A5ZdIdGooYJ0tHFoNmeBZsQnQsyY2QzdaUJ9xDq9JBmJTyMiAiX4DnLe__mgNft2CNguQhfFH_aoDSdUBqce6licHgC4YwfPrRW0f3JYCoKdFSQFba1dGCDOLA"/><span class="font-label-sm text-label-sm text-on-surface font-semibold hidden md:inline-block">C. Mendoza</span></div></div></header><main class="w-full pt-16 bg-surface px-space-lg"><div class="flex flex-col w-full pb-space-xl">
+<!-- Interactive Sandbox Live Preview Controller -->
+<section class="w-full bg-surface-container-high rounded-xl p-space-md mb-space-lg shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary flex-shrink-0">
+<span class="material-symbols-outlined text-title-md">visibility</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            Simulador en Vivo
+          </span>
+<span class="font-title-md text-title-md text-on-surface truncate">Vista de Comprador Final</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Los cambios en catálogo, precios y temas se sincronizan en tiempo real.</p>
+</div>
+</div>
+<!-- Viewport & Switcher Tools -->
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<!-- Resolution Toggles -->
+<div class="bg-surface-container-lowest p-1 rounded-lg flex items-center shadow-sm">
+<button class="px-space-sm py-1 rounded bg-primary-container text-on-primary-container font-label-sm text-label-sm flex items-center gap-1 transition-all" id="btn-view-desktop" onclick="setPreviewDevice('desktop')">
+<span class="material-symbols-outlined text-label-md">desktop_windows</span>
+<span class="hidden sm:inline">Escritorio</span>
+</button>
+<button class="px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-all" id="btn-view-mobile" onclick="setPreviewDevice('mobile')">
+<span class="material-symbols-outlined text-label-md">smartphone</span>
+<span class="hidden sm:inline">Móvil</span>
+</button>
+</div>
+<!-- Mode Switcher -->
+<a class="inline-flex items-center gap-1 px-space-md py-2 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors shadow-sm" href="#">
+<span class="material-symbols-outlined text-title-md text-primary">admin_panel_settings</span>
+<span>Volver a Edición</span>
+</a>
+</div>
+</section>
+<!-- STORE PREVIEW CONTAINER (Responsive frame simulator) -->
+<div class="w-full transition-all duration-300 mx-auto" id="store-frame-wrapper">
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden relative">
+<!-- Store Customer Navigation -->
+<header class="w-full bg-surface-container-lowest sticky top-0 z-30 shadow-sm">
+<div class="max-w-7xl mx-auto px-space-md lg:px-space-lg h-20 flex items-center justify-between gap-space-md">
+<!-- Store Brand / SENAVENTAS Learner Project -->
+<div class="flex items-center gap-space-md min-w-0">
+<div class="flex items-center gap-space-xs">
+<div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-title-md">storefront</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm tracking-tight text-primary">SENAVENTAS</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant -mt-1 tracking-wider uppercase">Tienda Demo Aprendiz</span>
+</div>
+</div>
+<!-- Academic Chip badge -->
+<span class="hidden lg:inline-flex items-center px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+              Gestión de Mercados • Ficha 27118
+            </span>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-space-lg text-on-surface-variant">
+<a class="font-label-lg text-label-lg text-primary font-semibold" href="#catalogo">Inicio</a>
+<a class="font-label-lg text-label-lg hover:text-primary transition-colors" href="#catalogo">Catálogo Completo</a>
+<a class="font-label-lg text-label-lg hover:text-primary transition-colors flex items-center gap-1" href="#catalogo">
+              Ofertas Didácticas
+              <span class="px-1.5 py-0.2 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold text-[10px]">NEW</span>
+</a>
+<a class="font-label-lg text-label-lg hover:text-primary transition-colors" href="#nosotros">Nosotros</a>
+</nav>
+<!-- Store Search & Cart Action -->
+<div class="flex items-center gap-space-sm">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-label-lg">search</span>
+<input class="w-48 lg:w-64 pl-9 pr-space-md py-1.5 rounded-full bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/40 placeholder:text-outline" placeholder="Buscar productos..." type="text"/>
+</div>
+<!-- Cart Trigger Button with badge -->
+<button class="relative p-2.5 rounded-full bg-surface-container hover:bg-secondary-container text-on-surface transition-all flex items-center justify-center" onclick="toggleCartDrawer(true)">
+<span class="material-symbols-outlined text-title-md">shopping_bag</span>
+<span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm flex items-center justify-center font-bold shadow-sm" id="nav-cart-counter">2</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Store Hero Showcase -->
+<section class="relative w-full overflow-hidden bg-surface-container-low px-space-md lg:px-space-xl py-space-xl lg:py-24">
+<!-- Living Background Accent Shapes -->
+<div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-primary/10 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-16 bottom-0 w-80 h-80 rounded-full bg-tertiary/10 blur-2xl pointer-events-none"></div>
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center relative z-10">
+<div class="lg:col-span-7 flex flex-col items-start gap-space-md">
+<div class="inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container-lowest text-primary font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span>100% Colombiano • Comercio Sostenible y Auténtico</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">
+              Sabores y Tradiciones de Nuestra Tierra
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+              Tienda modelo desarrollada por aprendices SENA en el programa de Gestión de Mercados y Comercio Electrónico. Descubre café de origen, artesanías y tesoros de nuestro campo.
+            </p>
+<div class="flex flex-wrap items-center gap-space-md pt-space-sm">
+<a class="px-space-lg py-3 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container shadow-md hover:shadow-lg transition-all flex items-center gap-space-xs" href="#catalogo">
+<span>Explorar Catálogo</span>
+<span class="material-symbols-outlined text-title-md">arrow_forward</span>
+</a>
+<button class="px-space-lg py-3 rounded-xl bg-surface-container text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high transition-all flex items-center gap-space-xs" onclick="toggleCartDrawer(true)">
+<span class="material-symbols-outlined text-title-md text-primary">local_mall</span>
+<span>Ver Mi Carrito (2)</span>
+</button>
+</div>
+<!-- Mini Trust Elements -->
+<div class="grid grid-cols-3 gap-space-md pt-space-lg w-full max-w-lg">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">100%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Calidad de Origen</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">4.9 / 5</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Satisfacción</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Simulado</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pago Seguro SENA</span>
+</div>
+</div>
+</div>
+<!-- Hero Image Showcase -->
+<div class="lg:col-span-5 relative">
+<div class="w-full h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl relative group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up artisanal Colombian premium roasted coffee beans and hand-woven indigenous artisan crafts placed gracefully on a natural rustic wood surface under warm gentle ambient morning light with lush tropical greenery in soft blur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuLtq_VgoKp3hk5M3XcUbjj4ljqBToWABwh-eXWO9wJvyWzM0Y__xINtuOT3YohEu6mO3Rub_HcbVbK4_PgtrDxYUe3YTwFDtJpRJKLPes8Zb6iVMA_1cHFg2HSWO-y13-TD9uKbOz1Lr7_G1GpYIRXTHyIl5iTPBY18HlB0w2IHCzXbOraHtImoV_n-UdDEW_kgVyhOCLJuCF2AHg8dfjFk-Vs3L9nEt9ZZ7pXYxW-f4d4xKH6TC9Vg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 p-space-md rounded-xl bg-surface-container-lowest/90 backdrop-blur-md flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Colección Destacada</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">Artesanos de los Andes &amp; Caribe</span>
+</div>
+<span class="px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Envío Gratis &gt; $100k</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pedagogical Hint Strip -->
+<section class="w-full bg-secondary-container/40 px-space-md lg:px-space-lg py-space-sm flex items-center justify-between flex-wrap gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-title-md">school</span>
+<span class="font-label-md text-label-md text-on-secondary-container">
+<strong>Laboratorio de Simulación Comercial:</strong> El aprendiz puede simular la experiencia completa de compra de un usuario final, desde la navegación hasta la confirmación de la pasarela simulada.
+          </span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Guía Pedagógica SENA v2.4</span>
+</section>
+<!-- Product Catalog Section -->
+<section class="max-w-7xl mx-auto px-space-md lg:px-space-lg py-space-xl" id="catalogo">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
+<div>
+<div class="inline-flex items-center gap-1 font-label-md text-label-md text-secondary font-semibold uppercase tracking-wider mb-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+              Productos en Inventario Real
+            </div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">Nuestra Selección de Temporada</h2>
+</div>
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1">
+<button class="px-space-md py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md">Todos (4)</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md">Cafés Especiales</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md">Artesanías</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md">Apicultura</button>
+</div>
+</div>
+<!-- Products Grid (4 items) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-lg">
+<!-- Product 1: Café Especial de Altura -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group overflow-hidden">
+<div class="relative w-full h-56 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Pack of Colombian specialty whole bean single origin coffee in an elegant craft paper pouch with minimalist green typography label next to fresh coffee cherries and ceramic mug on sunlit marble" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVnpQlcsr-DsD3c2iluLn733OsjPe-7Z6kXSqto1b5SmnTGq2cM_Cqttef88gHVsGfCepplsBZxWjCacIZAvAyXxdjRbuhfrkKZptAUxkndoMi4uWIC5vs7sUPrlqCR4_ORkqfrJPQuLvc9EJawimUwgm6nSZabWgl5OLC6oKht2w8-zMVuVqBiHPzNr44c7g24gdl3-h-GJxwO46zhECkL0UDFSYXWWhnSwvB2v8vCqFdKaiI7MJxMA"/>
+<span class="absolute top-3 left-3 px-space-sm py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-sm">
+                En el Carrito
+              </span>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container-lowest/80 backdrop-blur text-on-surface hover:text-error flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-title-md">favorite</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold tracking-wider">Origen Huila • 500g</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">Café Especial de Altura Suave</h3>
+<div class="flex items-center gap-1 mt-1 text-tertiary">
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star_half</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-1">(48 reseñas)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant line-through">$42.000 COP</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">$34.500 <span class="font-label-sm text-label-sm text-on-surface font-normal">COP</span></span>
+</div>
+<button class="p-2.5 rounded-xl bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-all flex items-center justify-center shadow-sm" onclick="toggleCartDrawer(true)" title="Añadido">
+<span class="material-symbols-outlined text-title-md">check</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product 2: Mochila Wayúu Tradicional -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group overflow-hidden">
+<div class="relative w-full h-56 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Handcrafted authentic Colombian Wayuu indigenous mochila bag with vibrant geometric indigenous patterns woven in cotton threads standing outdoors on natural sand under bright tropical sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCYDF7-VDcEav382g_Cwx7hbvlh0XT_SDfLSUdFfeMA851MZDVUq0wwAU7zzXQXLiNy-rej-L66DLa2-v4JgC9hF5b_mdT7dD5NIQZCf2zDrE7iF3e5wjwnEqwfDL55PmbLd0xfAOWqJiX2k5OA3LdEfKuDh5HWM28EnK25mz_ghoXauAbQ5nDq3wW_n0eyov4dqwrx5KXdsqfrHvHiN4lMicWs-V_6tIOZ1fdLp3_L8DY3VsNjrV9Cg"/>
+<span class="absolute top-3 left-3 px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold shadow-sm">
+                En el Carrito
+              </span>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container-lowest/80 backdrop-blur text-on-surface hover:text-error flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-title-md">favorite</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold tracking-wider">La Guajira • Hecho a mano</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">Mochila Wayúu Tradicional</h3>
+<div class="flex items-center gap-1 mt-1 text-tertiary">
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-1">(29 reseñas)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Precio estándar</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">$120.000 <span class="font-label-sm text-label-sm text-on-surface font-normal">COP</span></span>
+</div>
+<button class="p-2.5 rounded-xl bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-all flex items-center justify-center shadow-sm" onclick="toggleCartDrawer(true)" title="Añadido">
+<span class="material-symbols-outlined text-title-md">check</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product 3: Miel de Abejas de la Sierra -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group overflow-hidden">
+<div class="relative w-full h-56 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Pure golden raw artisanal bee honey dripping gracefully from a wooden honey dipper into a minimalist transparent glass jar on an organic green moss background surrounded by yellow wildflowers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb_jUamhalK_EwQrKRrCRtrwgWtkcyJ4LDPjQmechXML7CFvODfjieDW5qmZ8PDJe1NkIC7c1cM3xg_B-cCepNbCTbDS3KCgKFaVBmqSpMBu7pJ_LkJ0jM71ffR0tSAMTeQ3cH2DmOesyjs_TFQAMYRnoOz64YolTYPUrUiGGi27S9Is32wktLL-tsJdEN0_2SpNqcI1b8CZ418jRjEwE_AZo9VtGJBfoNZdmmRK1RF0K91IpldDNckg"/>
+<span class="absolute top-3 left-3 px-space-sm py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-semibold shadow-sm">
+                Novedad
+              </span>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container-lowest/80 backdrop-blur text-on-surface hover:text-error flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-title-md">favorite</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold tracking-wider">Sierra Nevada • 750ml</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">Miel de Abejas Cruda Multiflora</h3>
+<div class="flex items-center gap-1 mt-1 text-tertiary">
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md text-outline">star</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-1">(16 reseñas)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Stock: 14 uds</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">$28.000 <span class="font-label-sm text-label-sm text-on-surface font-normal">COP</span></span>
+</div>
+<button class="p-2.5 rounded-xl bg-surface-container hover:bg-primary hover:text-on-primary text-on-surface transition-all flex items-center justify-center shadow-sm" onclick="addSimulatedItem('Miel de Abejas Cruda', 28000)" title="Añadir al Carrito">
+<span class="material-symbols-outlined text-title-md">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Product 4: Sombrero Vueltiao Auténtico -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group overflow-hidden">
+<div class="relative w-full h-56 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Traditional Colombian Sombrero Vueltiao 21 vueltas handcrafted with natural cane arrow fibers showing intricate black and beige woven geometric patterns resting on Colombian woven textile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArm5Lb54w-lrPE1lUoqiHJADFWJ2zOCauCTPCdIsY5Eux7bhmaqYyYl28lmwxAk87wW5tf2hJuiIVN8lLYF4oVp5Uzz9oFW0RFL_ijiT3CXuiFv2ocVZFW3d8X-JG7neSdgdprjtv7epuGwCF8nX5JSCjvBO_NGEWRvsccy1scuzaUa1aFw6Q7gYtUbMWMdlz8y-5PlW8yCUP1K3vUAXGV8AjE-VuaSIrA0tl2NiLsRoylFqlK3JlMcQ"/>
+<span class="absolute top-3 left-3 px-space-sm py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-semibold shadow-sm">
+                Símbolo Nacional
+              </span>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container-lowest/80 backdrop-blur text-on-surface hover:text-error flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-title-md">favorite</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col flex-1 justify-between gap-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold tracking-wider">Córdoba • 21 Vueltas</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold group-hover:text-primary transition-colors">Sombrero Vueltiao Fino Zenú</h3>
+<div class="flex items-center gap-1 mt-1 text-tertiary">
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-label-md" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-1">(52 reseñas)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant line-through">$210.000 COP</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">$185.000 <span class="font-label-sm text-label-sm text-on-surface font-normal">COP</span></span>
+</div>
+<button class="p-2.5 rounded-xl bg-surface-container hover:bg-primary hover:text-on-primary text-on-surface transition-all flex items-center justify-center shadow-sm" onclick="addSimulatedItem('Sombrero Vueltiao Fino', 185000)" title="Añadir al Carrito">
+<span class="material-symbols-outlined text-title-md">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- About Section: Student Entrepreneur Project -->
+<section class="w-full bg-surface-container-low px-space-md lg:px-space-lg py-space-xl" id="nosotros">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-space-xl items-center">
+<div class="flex flex-col gap-space-md">
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Identidad del Emprendimiento</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">Impulsando el Comercio Electrónico Regional</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+              Esta tienda virtual es el resultado del proyecto integrador desarrollado por el aprendiz Carlos Mendoza en el Centro de Comercio y Servicios SENA. A través de este prototipo, se valida la arquitectura de información, la gestión de inventarios y el embudo de conversión para marcas colombianas.
+            </p>
+<div class="flex items-center gap-space-md pt-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-headline-sm">verified</span>
+<span class="font-label-lg text-label-lg text-on-surface">Validado por Instructor</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-headline-sm">database</span>
+<span class="font-label-lg text-label-lg text-on-surface">Inventario Sincronizado</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm flex flex-col gap-space-md">
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Resumen de Métricas Simuladas</h3>
+<div class="grid grid-cols-2 gap-space-md">
+<div class="p-space-md bg-surface-container rounded-xl">
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Tasa de Conversión (Demo)</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">3.8%</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Dentro del objetivo SENA</span>
+</div>
+<div class="p-space-md bg-surface-container rounded-xl">
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Valor Ticket Promedio</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold">$77.250 COP</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 categorías</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-high text-on-surface-variant font-body-sm text-body-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-title-md text-primary">info</span>
+<span>Todos los pedidos generados se registran en el panel administrativo de prueba.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Store Footer -->
+<footer class="w-full bg-surface-container-lowest pt-space-xl pb-space-lg shadow-sm">
+<div class="max-w-7xl mx-auto px-space-md lg:px-space-lg">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-xl pb-space-lg">
+<!-- Brand -->
+<div class="flex flex-col gap-space-sm md:col-span-1">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-label-lg">storefront</span>
+</div>
+<span class="font-title-md text-title-md text-primary font-bold">SENAVENTAS</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Plataforma de entrenamiento en comercio digital y simulación operativa para aprendices del Servicio Nacional de Aprendizaje.
+              </p>
+</div>
+<!-- Links -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider mb-1">Tienda Virtual</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#catalogo">Todos los Productos</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#catalogo">Envíos Nacionales</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#catalogo">Garantía Didáctica</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#catalogo">Términos de Aprendizaje</a>
+</div>
+<!-- Simulated Payment Methods -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider mb-1">Medios de Pago Simulados</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Simula transacciones sin costo real:</p>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-space-sm py-1 rounded-md bg-surface-container font-label-sm text-label-sm font-bold text-on-surface">Nequi</span>
+<span class="px-space-sm py-1 rounded-md bg-surface-container font-label-sm text-label-sm font-bold text-on-surface">Daviplata</span>
+<span class="px-space-sm py-1 rounded-md bg-surface-container font-label-sm text-label-sm font-bold text-on-surface">PSE</span>
+<span class="px-space-sm py-1 rounded-md bg-surface-container font-label-sm text-label-sm font-bold text-on-surface">Bancolombia</span>
+</div>
+</div>
+<!-- Academic Seal -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider mb-1">Sello Académico</span>
+<div class="p-space-md rounded-xl bg-secondary-container/40 flex flex-col gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<span class="font-label-sm text-label-sm text-on-secondary-container font-bold">Certificación Didáctica SENA</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ficha Técnica 27118 • Regional Bogotá D.C.</span>
+</div>
+</div>
+</div>
+<div class="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span>© 2025 SENAVENTAS - Entorno de Aprendizaje de Comercio Electrónico.</span>
+<span>Desarrollado para fines exclusivamente educativos.</span>
+</div>
+</div>
+</footer>
+<!-- FLOATING / SLIDE-OVER SHOPPING CART DRAWER (Open State by Default) -->
+<aside class="absolute top-0 right-0 h-full w-full max-w-md bg-surface-container-lowest shadow-2xl z-50 flex flex-col justify-between transition-transform duration-300 transform translate-x-0" id="cart-drawer">
+<!-- Cart Header -->
+<div class="p-space-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-title-md">shopping_bag</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Tu Carrito de Compra</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2 artículos en simulación</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" onclick="toggleCartDrawer(false)" title="Cerrar">
+<span class="material-symbols-outlined text-title-md">close</span>
+</button>
+</div>
+<!-- Pedagogical Callout Inside Cart -->
+<div class="px-space-lg py-space-sm bg-secondary-container/50 flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-title-md flex-shrink-0">lightbulb</span>
+<p class="font-body-sm text-body-sm text-on-secondary-container">
+<strong>Flujo de Checkout Didáctico:</strong> Comprueba el cálculo automático de flete y el botón de pasarela simulada.
+          </p>
+</div>
+<!-- Cart Items List (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-space-lg flex flex-col gap-space-md">
+<!-- Cart Item 1 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md shadow-sm">
+<div class="w-16 h-16 rounded-lg overflow-hidden bg-surface flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Pack of Colombian specialty whole bean single origin coffee pouch thumbnail view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQE0xWozXvdneqGxaikO5FPHpvxs0XBkK47OGVbv2WEnofr_miK_xUOvSJI3TdiEs_jWT6nZL19nX4QzVyWomojAvWCuAzgbBtfID_JcjNdyGG91GomeLzW2JyK1GCg9ycohNGls3W6d9pepHclEP-RIrXaliuT-sgJAlOauIAWTFqFNELHgFClopvwLDQueTsaWKbA60RpghoDSz3DX_5KPhJIBmWJrIPrznYK_VIU0N5-6eAatd6uw"/>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Café Especial de Altura Suave</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Bolsa 500g • Molienda Media</span>
+<span class="font-label-lg text-label-lg text-primary font-bold mt-1">$34.500 COP</span>
+</div>
+<div class="flex flex-col items-end gap-space-xs">
+<button class="text-on-surface-variant hover:text-error transition-colors" onclick="removeSimulatedItem(this, 34500)" title="Eliminar">
+<span class="material-symbols-outlined text-label-lg">delete</span>
+</button>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-0.5 rounded-lg shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">x1</span>
+</div>
+</div>
+</div>
+<!-- Cart Item 2 -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center gap-space-md shadow-sm">
+<div class="w-16 h-16 rounded-lg overflow-hidden bg-surface flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Authentic colorful Colombian Wayuu handmade indigenous woven backpack pouch thumbnail view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHyQOfJj5Nvprx5DRK7F0KzWlfxPzF2Uh0WKHqXrWEvOM4FPjSgtSoc6dqH-QdO4LVUYcaAljgvyykpcHJ70J6PAle_SIodNwzA7g004xXOg0YAB4RfxsNSAvn2AxdJPdt3DrKMzyt1Z_x2pF1OsMAQAQ8kYw5kDiBCRmh6PfSZrwUm7hPsZ3ds4voqwaHPfrQIl9R5qJTowNfVdLCt9MB6Elc07DBMIHOB6iAZbvkelRhohBOkvg4Kg"/>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Mochila Wayúu Tradicional</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Diseño geométrico Kanaas</span>
+<span class="font-label-lg text-label-lg text-primary font-bold mt-1">$120.000 COP</span>
+</div>
+<div class="flex flex-col items-end gap-space-xs">
+<button class="text-on-surface-variant hover:text-error transition-colors" onclick="removeSimulatedItem(this, 120000)" title="Eliminar">
+<span class="material-symbols-outlined text-label-lg">delete</span>
+</button>
+<div class="flex items-center gap-1 bg-surface-container-lowest px-2 py-0.5 rounded-lg shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">x1</span>
+</div>
+</div>
+</div>
+<!-- Simulated Discount Code field -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Cupón Didáctico</span>
+<div class="flex items-center gap-space-xs">
+<input class="flex-1 px-space-md py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md font-mono" readonly="" type="text" value="SENA2025"/>
+<button class="px-space-md py-1.5 rounded-lg bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold">Aplicado (-$0)</button>
+</div>
+</div>
+</div>
+<!-- Cart Summary & Proceed to Payment -->
+<div class="p-space-lg bg-surface-container-low flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-xs font-body-sm text-body-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span>Subtotal Productos (2)</span>
+<span class="font-semibold text-on-surface" id="cart-subtotal">$154.500 COP</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span>Cálculo simulado de envío</span>
+<span class="material-symbols-outlined text-label-sm cursor-help" title="Flete nacional promedio para pruebas">help</span>
+</span>
+<span class="font-semibold text-on-surface">$12.000 COP</span>
+</div>
+<div class="flex items-center justify-between text-headline-sm text-headline-sm text-primary font-bold pt-space-xs">
+<span>Total a Pagar</span>
+<span id="cart-total">$166.500 COP</span>
+</div>
+</div>
+<!-- Academic Simulated Checkout Button -->
+<button class="w-full py-3.5 px-space-md rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-space-xs" onclick="triggerSimulatedCheckout()">
+<span class="material-symbols-outlined text-title-md">lock</span>
+<span>Proceder al Pago Simulado</span>
+</button>
+<!-- Gateway options visual cues -->
+<div class="flex items-center justify-center gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<span>Pasarelas activas:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-semibold">Nequi</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-semibold">Daviplata</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-semibold">PSE</span>
+</div>
+</div>
+</aside>
+<!-- Cart Re-open Floating Action Pill (Visible when drawer is closed) -->
+<button class="hidden fixed bottom-6 right-6 px-space-lg py-3 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-2xl flex items-center gap-space-xs z-40 hover:bg-primary-container transition-all" id="cart-floating-bubble" onclick="toggleCartDrawer(true)">
+<span class="material-symbols-outlined text-title-md">shopping_cart</span>
+<span>Ver Carrito (<span id="bubble-count">2</span>)</span>
+</button>
+<!-- SIMULATED CHECKOUT MODAL (Pedagogical Feedback) -->
+<div class="hidden absolute inset-0 bg-on-surface/50 backdrop-blur-sm z-50 flex items-center justify-center p-space-md" id="checkout-modal">
+<div class="bg-surface-container-lowest max-w-lg w-full rounded-2xl p-space-xl shadow-2xl flex flex-col gap-space-md animate-in fade-in zoom-in-95 duration-200">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mx-auto">
+<span class="material-symbols-outlined text-headline-sm">check_circle</span>
+</div>
+<div class="text-center">
+<span class="inline-block px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold mb-2">Simulación Exitosa</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">¡Orden Simulada Completada!</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Has experimentado el flujo de compra como lo vería un cliente real. No se ha realizado ningún cobro monetario real.
+            </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs text-on-surface font-body-sm text-body-sm">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Número de Pedido Demo:</span>
+<span class="font-mono font-bold">#SENA-88492</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Método Seleccionado:</span>
+<span class="font-semibold">Nequi (Sandbox Didáctico)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Total Simulado:</span>
+<span class="font-bold text-primary">$166.500 COP</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Estado en Panel:</span>
+<span class="font-semibold text-secondary">Pendiente de Despacho (Paso 4)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-2.5 px-space-md rounded-xl bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all text-center" onclick="closeCheckoutModal()">
+              Continuar Navegando
+            </button>
+<a class="flex-1 py-2.5 px-space-md rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-all text-center" href="#">
+              Ver en Mis Pedidos
+            </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let isMobilePreview = false;
+  let cartItemCount = 2;
+  let subtotalAmount = 154500;
+  const shippingAmount = 12000;
+
+  function setPreviewDevice(device) {
+    const wrapper = document.getElementById('store-frame-wrapper');
+    const btnDesktop = document.getElementById('btn-view-desktop');
+    const btnMobile = document.getElementById('btn-view-mobile');
+
+    if (device === 'mobile') {
+      isMobilePreview = true;
+      wrapper.classList.remove('w-full');
+      wrapper.classList.add('max-w-sm', 'shadow-2xl');
+      btnMobile.classList.add('bg-primary-container', 'text-on-primary-container');
+      btnMobile.classList.remove('text-on-surface-variant');
+      btnDesktop.classList.remove('bg-primary-container', 'text-on-primary-container');
+      btnDesktop.classList.add('text-on-surface-variant');
+    } else {
+      isMobilePreview = false;
+      wrapper.classList.remove('max-w-sm', 'shadow-2xl');
+      wrapper.classList.add('w-full');
+      btnDesktop.classList.add('bg-primary-container', 'text-on-primary-container');
+      btnDesktop.classList.remove('text-on-surface-variant');
+      btnMobile.classList.remove('bg-primary-container', 'text-on-primary-container');
+      btnMobile.classList.add('text-on-surface-variant');
+    }
+  }
+
+  function toggleCartDrawer(open) {
+    const drawer = document.getElementById('cart-drawer');
+    const bubble = document.getElementById('cart-floating-bubble');
+    if (open) {
+      drawer.classList.remove('translate-x-full');
+      drawer.classList.add('translate-x-0');
+      bubble.classList.add('hidden');
+    } else {
+      drawer.classList.remove('translate-x-0');
+      drawer.classList.add('translate-x-full');
+      bubble.classList.remove('hidden');
+    }
+  }
+
+  function removeSimulatedItem(button, price) {
+    const itemCard = button.closest('.p-space-md');
+    if (itemCard) {
+      itemCard.style.opacity = '0';
+      itemCard.style.transform = 'translateX(20px)';
+      itemCard.style.transition = 'all 0.25s ease';
+      setTimeout(() => {
+        itemCard.remove();
+        cartItemCount = Math.max(0, cartItemCount - 1);
+        subtotalAmount = Math.max(0, subtotalAmount - price);
+        updateCartTotals();
+      }, 250);
+    }
+  }
+
+  function addSimulatedItem(title, price) {
+    cartItemCount++;
+    subtotalAmount += price;
+    updateCartTotals();
+    toggleCartDrawer(true);
+  }
+
+  function updateCartTotals() {
+    const navCounter = document.getElementById('nav-cart-counter');
+    const bubbleCount = document.getElementById('bubble-count');
+    const subtotalEl = document.getElementById('cart-subtotal');
+    const totalEl = document.getElementById('cart-total');
+
+    if (navCounter) navCounter.innerText = cartItemCount;
+    if (bubbleCount) bubbleCount.innerText = cartItemCount;
+
+    const formattedSubtotal = '$' + subtotalAmount.toLocaleString('es-CO') + ' COP';
+    const totalAmount = subtotalAmount > 0 ? (subtotalAmount + shippingAmount) : 0;
+    const formattedTotal = '$' + totalAmount.toLocaleString('es-CO') + ' COP';
+
+    if (subtotalEl) subtotalEl.innerText = formattedSubtotal;
+    if (totalEl) totalEl.innerText = formattedTotal;
+  }
+
+  function triggerSimulatedCheckout() {
+    const modal = document.getElementById('checkout-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+  }
+
+  function closeCheckoutModal() {
+    const modal = document.getElementById('checkout-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  }
+</script></main></div></body></html>
