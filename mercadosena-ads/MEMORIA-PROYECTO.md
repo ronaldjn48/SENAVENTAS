@@ -15,7 +15,8 @@ Documento de contexto para retomar el trabajo en sesiones futuras (o para cargar
 - Las pantallas de referencia replican MercadoLibre Ads para productos: anuncios (interruptores, ordenar por clics, impresiones, ventas y ACOS, aplicar cambios), campañas (tarjetas con presupuesto, ROAS objetivo, ventas y ACOS), métricas (atribución directa, KPIs, ventas con publicidad vs orgánico) y ajustes de ROAS (2x, 3x recomendado, 10x, personalizado).
 - Tokens: Plus Jakarta Sans; verde SENA #39A900 (primary-container), #226D00 (primary), superficie #F8F9FF, texto #0B1C30, error #BA1A1A, tertiary #0053DB, ámbar para alertas.
 - Mobile first: barra inferior en móvil, menú lateral desde 900 px. Áreas táctiles de 44 px. Sin dependencias externas: fuentes en base64, iconos SVG propios.
-- Portabilidad: un solo `.html`. Estado en localStorage. Exportar e importar JSON.
+- Portabilidad: un solo `.html`. Estado en localStorage por usuario (`mercadosena-ads-v1:<usuario>`). Exportar e importar JSON.
+- Login (`src/02a-auth.js`): usuario y contraseña simples, sin verificaciones. Usuario sin distinguir mayúsculas; contraseña con hash simple (no es seguridad real). Sesión en sessionStorage: cada pestaña nueva pide login. Cuenta nueva = estado en blanco. El HTML descargado se captura antes de renderizar, por eso nunca lleva datos.
 
 ## Decisiones de dominio
 

@@ -106,15 +106,17 @@ const AUDIENCE_BASE = 480000; // personas activas por día en el marketplace sim
 const LEARN_DAYS = 3;
 
 /* ============ Estado ============ */
-const KEY = 'mercadosena-ads-v1';
+let KEY = null; // clave de almacenamiento del usuario con sesión activa
 const blankAudience = () => ({ geo: { scope: 'nacional', cities: [] }, demo: { ageMin: 18, ageMax: 65, genders: ['mujer', 'hombre'], incomes: [] }, behavior: { buyers: [], interests: [], devices: [] }, touched: false });
 const blank = () => ({ v: 1, seller: { name: 'Mi tienda SENA', city: 'Barranquilla' }, products: [], campaigns: [], sim: { day: 0, organic: [] }, reports: [], acos: { answers: {}, camp: {}, best: '', why: '', checked: false }, draft: null, dismissed: {} });
 let S = blank();
 let saveFail = false;
 function load() {
+  S = blank(); if (!KEY) return;
   try { const r = localStorage.getItem(KEY); if (r) { const o = JSON.parse(r); if (o && o.v === 1) S = Object.assign(blank(), o); } } catch (e) { }
 }
 function save() {
+  if (!KEY) return;
   try { localStorage.setItem(KEY, JSON.stringify(S)); saveFail = false; }
   catch (e) { if (!saveFail) toast('Almacenamiento del navegador lleno. Exporta tu proyecto en Datos.', 'warn'); saveFail = true; }
 }

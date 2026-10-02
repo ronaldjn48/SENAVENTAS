@@ -76,6 +76,7 @@ function alerts() {
 /* ---- Ruteo y render ---- */
 const VIEWS = {};
 function render() {
+  if (!AUTH.user) { $('#app').innerHTML = loginHTML(); document.title = 'Ingresar · MercadoSENA Ads'; window.scrollTo(0, 0); return; }
   const r = route(); const y = window.scrollY; const same = render.last === location.hash;
   const v = VIEWS[r.name] || VIEWS.inicio; let body;
   try { body = v(r); } catch (e) { console.error(e); body = `<div class="page"><div class="card">Ocurrió un error al mostrar esta pantalla: ${esc(e.message)}</div></div>`; }
@@ -126,5 +127,5 @@ ACT.alerts = () => {
   const a = alerts();
   sheet(`<h3 class="t-h3" style="margin-bottom:12px">Notificaciones</h3>${a.length ? a.map(x => `<a class="menu-item" href="${x.h}" data-act="closeSheet" style="align-items:flex-start">${ic('warn', 's24')}<div><div class="b">${esc(x.t)}</div><div class="t-sm c-sec" style="font-weight:400">${esc(x.d)}</div></div></a>`).join('') : '<p class="c-sec">No tienes alertas. Cuando una campaña agote su presupuesto, un producto se quede sin stock o un anuncio pierda dinero, aparecerá aquí.</p>'}`);
 };
-ACT.profile = () => sheet(`<div class="col gap12"><h3 class="t-h3">Perfil de vendedor</h3><div class="field"><label>Nombre de la tienda</label><input class="inp" id="sn" value="${esc(S.seller.name)}"></div><div class="field"><label>Ciudad</label><select class="sel" id="sc">${CITIES.map(c => `<option ${S.seller.city === c[0] ? 'selected' : ''}>${c[0]}</option>`).join('')}</select></div><button class="btn pri blk" data-act="saveProfile">Guardar</button></div>`);
+ACT.profile = () => sheet(`<div class="col gap12"><h3 class="t-h3">Perfil de vendedor</h3><div class="card flat row gap12"><span class="avatar">${ic('user', 's18')}</span><div class="grow"><div class="t-xs c-sec up">Sesión activa</div><div class="b">${esc(AUTH.user.name)}</div></div></div><div class="field"><label>Nombre de la tienda</label><input class="inp" id="sn" value="${esc(S.seller.name)}"></div><div class="field"><label>Ciudad</label><select class="sel" id="sc">${CITIES.map(c => `<option ${S.seller.city === c[0] ? 'selected' : ''}>${c[0]}</option>`).join('')}</select></div><button class="btn pri blk" data-act="saveProfile">Guardar</button><button class="btn out blk" data-act="logout">${ic('lock', 's16')} Cerrar sesión</button></div>`);
 ACT.saveProfile = () => { S.seller.name = $('#sn').value.trim() || 'Mi tienda SENA'; S.seller.city = $('#sc').value; save(); closeSheet(); toast('Perfil actualizado'); };

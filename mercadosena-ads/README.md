@@ -8,6 +8,12 @@ Archivo listo para usar: `mercadosena-ads.html`. Un solo archivo, sin internet, 
 
 También se descarga desde la pantalla Datos y descarga dentro del simulador.
 
+## Cuentas por estudiante
+
+Al abrir el simulador aparece el login. El estudiante crea un usuario y una contraseña (sin correo ni verificaciones) o ingresa con una cuenta existente. Cada usuario tiene su propio espacio de datos en el navegador y una cuenta nueva siempre empieza desde cero. La sesión termina al cerrar la pestaña o con Cerrar sesión en el perfil.
+
+El archivo descargado no incluye ningún trabajo: se genera antes de cargar datos. Un estudiante nuevo siempre lo encuentra limpio. La contraseña solo separa el trabajo de cada estudiante en el mismo dispositivo; no es seguridad real. El trabajo de un estudiante viaja a otro dispositivo con Exportar proyecto e Importar proyecto.
+
 ## Flujo del aprendiz
 
 1. Creación de productos: título y descripción.
