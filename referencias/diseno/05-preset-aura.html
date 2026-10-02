@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"background":"#f8f9ff","surface":"#f8f9ff","on-primary-container":"#a1ffb7","secondary-container":"#adedd3","primary":"#005f2e","on-error":"#ffffff","surface-container":"#e5eeff","primary-container":"#007a3d","outline":"#6f7a6f","primary-fixed-dim":"#78db92","tertiary-fixed":"#6ffbbe","surface-bright":"#f8f9ff","on-secondary-container":"#306d58","on-tertiary-fixed-variant":"#005236","surface-container-highest":"#d3e4fe","on-secondary":"#ffffff","surface-container-low":"#eff4ff","on-surface":"#0b1c30","surface-dim":"#cbdbf5","error-container":"#ffdad6","secondary-fixed":"#b0f0d6","surface-container-high":"#dce9ff","on-primary-fixed-variant":"#005227","on-secondary-fixed":"#002117","surface-variant":"#d3e4fe","on-surface-variant":"#3f493f","on-primary":"#ffffff","on-background":"#0b1c30","inverse-surface":"#213145","on-error-container":"#93000a","tertiary":"#005e3f","on-tertiary":"#ffffff","inverse-on-surface":"#eaf1ff","secondary-fixed-dim":"#95d3ba","surface-container-lowest":"#ffffff","tertiary-container":"#007952","on-primary-fixed":"#00210c","tertiary-fixed-dim":"#4edea3","inverse-primary":"#78db92","on-secondary-fixed-variant":"#0b513d","outline-variant":"#becabc","error":"#ba1a1a","secondary":"#2b6954","on-tertiary-fixed":"#002113","on-tertiary-container":"#99ffcd","primary-fixed":"#94f8ad","surface-tint":"#006d36"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","space-sm":"0.5rem","space-xl":"2.5rem","gutter-mobile":"1rem","space-md":"1rem","space-lg":"1.5rem","space-xs":"0.25rem","gutter":"1.5rem","margin-mobile":"1rem"},"fontFamily":{"display-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"]},"fontSize":{"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"20px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"title-md":["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"500"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="SENAVENTAS Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Xx67cZ7cWiJMIaJt52HED6-6sIbbNQzPl-_wUNkGCOKQItR5o8CS-s8SwP8nXhI2Cah9IjGJ2NQjbw1LdyauGrlASo6Cjcf-iG_ek8F0r1Y97BKQp7wbhfMxq5h-_zF59MsXb15FFKVJxejc-L03sJHqcOsWK-5WAjghMjO5_N-o2N0d1BlZqihmUvMgJ30nPnrrf1M3vJxAoBkvUt6hOFyy74ZehJ1j5AstaoXcJGSPOM_mhbb-GY_wnW"/><span class="font-title-md text-title-md text-primary tracking-tight">SENAVENTAS</span></div></div><div class="px-space-md py-space-sm"><div class="bg-secondary-container/50 px-space-md py-space-sm rounded-lg flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-on-secondary-container uppercase font-bold tracking-wider">Taller E-Commerce</span><span class="font-label-sm text-label-sm text-secondary font-semibold">65%</span></div><div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full w-2/3"></div></div><span class="font-body-sm text-body-sm text-on-surface-variant">Paso 3 de 5: Catálogo Virtual</span></div></div><nav class="flex flex-col gap-space-xs px-space-md mt-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="configuracion" href="#"><span class="material-symbols-outlined text-title-md">tune</span><span class="font-label-lg text-label-lg">Configuración &amp; Temas</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="productos" href="#"><span class="material-symbols-outlined text-title-md">inventory_2</span><span class="font-label-lg text-label-lg">Productos &amp; Inventario</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="tienda-en-vivo" href="#"><span class="material-symbols-outlined text-title-md">storefront</span><span class="font-label-lg text-label-lg">Mi Tienda en Vivo</span></a></nav></div><div class="p-space-md"><div class="bg-surface-container-low p-space-md rounded-xl flex items-center gap-space-md"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKaysgB1KGfHnZ59V4ByrGZ7HpkNqPhImGxxKp_8vfYaHl_C1Oih6UD7Lkm-IYXZmuYxVNpQ4qBGPA8wVCP8frWUz0WSQR_TYOOvCsB4L5ajNppKNRIJkChbgHmK78A5ZdIdGooYJ0tHFoNmeBZsQnQsyY2QzdaUJ9xDq9JBmJTyMiAiX4DnLe__mgNft2CNguQhfFH_aoDSdUBqce6licHgC4YwfPrRW0f3JYCoKdFSQFba1dGCDOLA"/><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface truncate">Carlos Mendoza</span><span class="font-body-sm text-body-sm text-on-surface-variant truncate">Aprendiz SENA • Ficha 27118</span></div><span class="material-symbols-outlined text-on-surface-variant text-label-lg cursor-pointer hover:text-on-surface">more_vert</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-sm"><span class="inline-flex items-center gap-1.5 px-space-md py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>Modo Aprendizaje / Sandbox Activo</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-title-md p-space-xs hover:text-on-surface cursor-pointer rounded-lg hover:bg-surface-container-high transition-colors">help_outline</span><span class="material-symbols-outlined text-title-md p-space-xs hover:text-on-surface cursor-pointer rounded-lg hover:bg-surface-container-high transition-colors">notifications</span></div><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKaysgB1KGfHnZ59V4ByrGZ7HpkNqPhImGxxKp_8vfYaHl_C1Oih6UD7Lkm-IYXZmuYxVNpQ4qBGPA8wVCP8frWUz0WSQR_TYOOvCsB4L5ajNppKNRIJkChbgHmK78A5ZdIdGooYJ0tHFoNmeBZsQnQsyY2QzdaUJ9xDq9JBmJTyMiAiX4DnLe__mgNft2CNguQhfFH_aoDSdUBqce6licHgC4YwfPrRW0f3JYCoKdFSQFba1dGCDOLA"/><span class="font-label-sm text-label-sm text-on-surface font-semibold hidden md:inline-block">C. Mendoza</span></div></div></header><main class="w-full pt-16 bg-surface px-space-lg"><div class="flex flex-col w-full pb-16">
+<!-- BARRA DIDÁCTICA SUPERIOR: Simulador SENAVENTAS -->
+<aside aria-label="Control pedagógico de simulación" class="w-full bg-surface-container-lowest shadow-md rounded-xl p-space-md mb-space-lg flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center flex-wrap gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-space-md py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary-fixed animate-pulse"></span>
+        Simulación en Vivo SENAVENTAS
+      </span>
+<span class="inline-flex items-center gap-1 px-space-md py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-body-md text-secondary">diamond</span>
+        Tema Activo: Aura Gold &amp; Jewelry (Preset de Lujo)
+      </span>
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+        Ficha SENA 27118 • Instructoría E-commerce
+      </span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center bg-surface-container-low p-1 rounded-lg">
+<button class="flex items-center gap-1 px-space-sm py-1 rounded-md bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-sm transition-all" id="view-desktop-btn" title="Vista Escritorio">
+<span class="material-symbols-outlined text-body-md">desktop_windows</span>
+<span>Escritorio</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-1 rounded-md text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all" id="view-mobile-btn" title="Vista Móvil">
+<span class="material-symbols-outlined text-body-md">smartphone</span>
+<span>Móvil (390px)</span>
+</button>
+</div>
+<a class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest font-label-sm text-label-sm font-semibold transition-all" href="#">
+<span class="material-symbols-outlined text-body-md">arrow_back</span>
+        Volver al Editor / Temas
+      </a>
+</div>
+</aside>
+<!-- BANNER PEDAGÓGICO DE APRENDIZAJE: Alto Ticket -->
+<section class="w-full bg-primary text-on-primary rounded-xl p-space-md mb-space-lg shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-start md:items-center gap-space-md">
+<div class="p-2 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-headline-sm">school</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary-fixed uppercase tracking-wider">Ficha Didáctica: Configuración de Comercio de Alto Valor Percibido</p>
+<p class="font-body-sm text-body-sm text-on-primary">
+          El segmento de joyería fina requiere una ratio de margen comercial objetivo del <strong class="text-primary-fixed font-semibold">65% al 78%</strong>, protocolos de trazabilidad de metales (Ley 950 / Oro 18K), e integración obligatoria de pólizas de envío asegurado.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-space-md shrink-0">
+<div class="text-right">
+<span class="font-label-sm text-label-sm block text-primary-fixed opacity-90">Conversión Sim.</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-primary">3.4% <span class="font-body-sm text-body-sm font-normal text-primary-fixed">(Alto)</span></span>
+</div>
+<div class="h-8 w-px bg-on-primary/20"></div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm block text-primary-fixed opacity-90">Ticket Promedio</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-primary">$835.000 COP</span>
+</div>
+</div>
+</section>
+<!-- CONTENEDOR MAESTRO DE LA TIENDA VIRTUAL (SIMULADOR CANVAS) -->
+<div class="w-full transition-all duration-300 mx-auto" id="store-viewport">
+<div class="w-full bg-[#FAF8F5] text-on-surface rounded-2xl shadow-xl overflow-hidden flex flex-col relative">
+<!-- TIENDA: TOPBAR DE SERVICIO AL CLIENTE & POLÍTICAS -->
+<div class="bg-[#1C1814] text-[#E7DECD] px-space-lg py-2 flex items-center justify-between text-center font-label-sm text-label-sm">
+<div class="hidden sm:flex items-center gap-space-md text-[#BFAF98]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-body-sm">verified</span> Certificado Gemológico Muzo Incluido</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-body-sm">lock</span> Envío Asegurado 100% a Toda Colombia</span>
+</div>
+<div class="w-full sm:w-auto text-center font-semibold text-[#F7F3EB] tracking-wide">
+          CORTESÍA SENA: 3 cuotas sin interés en orfebrería certificada
+        </div>
+<div class="hidden md:flex items-center gap-space-sm text-[#BFAF98]">
+<span class="cursor-pointer hover:text-[#F7F3EB]">Moneda: COP ($)</span>
+<span>•</span>
+<span class="cursor-pointer hover:text-[#F7F3EB]">Soporte Concierge</span>
+</div>
+</div>
+<!-- TIENDA: HEADER PRINCIPAL -->
+<header class="bg-[#FAF8F5]/95 backdrop-blur-md sticky top-0 z-30 px-space-lg py-space-md shadow-sm">
+<div class="max-w-7xl mx-auto flex items-center justify-between gap-space-md">
+<!-- Botón Menú Mobile (Solo indicativo) -->
+<button class="md:hidden text-on-surface hover:text-[#9A7B38]">
+<span class="material-symbols-outlined text-headline-sm">menu</span>
+</button>
+<!-- LOGO AURA -->
+<div class="flex flex-col items-center cursor-pointer">
+<span class="font-serif tracking-[0.28em] text-headline-md text-[#1C1814] uppercase font-bold">A U R A</span>
+<span class="font-label-sm text-label-sm tracking-[0.32em] text-[#9A7B38] uppercase font-medium">Joyas &amp; Platería Ancestral</span>
+</div>
+<!-- NAVEGACIÓN PRINCIPAL -->
+<nav class="hidden lg:flex items-center gap-space-lg font-label-md text-label-md tracking-wider uppercase text-[#4A4237]">
+<a class="text-[#9A7B38] font-bold hover:text-[#1C1814] transition-colors flex items-center gap-1" href="#esmeraldas">
+              Colección Esmeraldas
+              <span class="w-1.5 h-1.5 rounded-full bg-[#9A7B38]"></span>
+</a>
+<a class="hover:text-[#9A7B38] transition-colors" href="#anillos">Anillos de Compromiso</a>
+<a class="hover:text-[#9A7B38] transition-colors" href="#collares">Collares de Autor</a>
+<a class="hover:text-[#9A7B38] transition-colors" href="#plata">Plata 950 Filigrana</a>
+<a class="hover:text-[#9A7B38] transition-colors" href="#cuidado">Guía &amp; Cuidados</a>
+</nav>
+<!-- ACCIONES DEL HEADER: Moneda, Búsqueda, Carrito -->
+<div class="flex items-center gap-space-sm sm:gap-space-md">
+<button class="hidden sm:flex items-center gap-1 px-2 py-1 rounded bg-[#EFE9DF] text-[#4A4237] font-label-sm text-label-sm">
+<span>COP ($)</span>
+<span class="material-symbols-outlined text-body-sm">expand_more</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#EFE9DF] text-[#1C1814] transition-colors" title="Buscar joya o gema">
+<span class="material-symbols-outlined text-title-md">search</span>
+</button>
+<button class="hidden sm:inline-flex p-2 rounded-full hover:bg-[#EFE9DF] text-[#1C1814] transition-colors" title="Favoritos">
+<span class="material-symbols-outlined text-title-md">favorite_border</span>
+</button>
+<!-- Disparador de Carrito -->
+<button class="flex items-center gap-2 px-space-md py-2 rounded-full bg-[#1C1814] text-[#F7F3EB] hover:bg-[#9A7B38] shadow-md transition-all" id="toggle-cart-btn">
+<span class="material-symbols-outlined text-title-md">local_mall</span>
+<span class="font-label-sm text-label-sm font-semibold">Bolsa (2)</span>
+</button>
+</div>
+</div>
+</header>
+<!-- CUERPO DE LA TIENDA CON LAYOUT DINÁMICO & DRAWER INTEGRADO -->
+<div class="relative w-full flex flex-col lg:flex-row">
+<!-- COLUMNA PRINCIPAL DE LA TIENDA (CATÁLOGO & HERO) -->
+<main class="flex-1 w-full p-space-md md:p-space-lg lg:p-space-xl flex flex-col gap-space-xl">
+<!-- HERO SECTION EDITORIAL DE ALTA GAMA -->
+<section class="relative w-full rounded-2xl overflow-hidden bg-[#181410] text-[#FAF8F5] shadow-xl min-h-[460px] flex items-center">
+<!-- Imagen de Fondo Hero con Scrim Editorial -->
+<div class="absolute inset-0 bg-cover bg-center opacity-40" data-alt="Close up photography of handcrafted Colombian luxury jewelry with glowing Muzo emeralds set on 18K solid yellow gold, warm dramatic museum spotlighting, velvet dark background, high fashion editorial aesthetic" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBG3qNc2uNkGx5dHvJfubAUMY4aLQAkZfXRd32uVefxszZsIt2QL-HCVJ0YqsrDsbq_pbq_8Le5e4h7nwiV-Nf4bMVnbe5uG08fGcFx4FglWDmKTxNepM9KlILLJe7LcJyt7-n5A2L3F98Ibjo-MbZnaaVN8oTSiZsfcJgca9rs807Cr0Bfb7QJepAZj8NSfSlLGKHVGBobI-6HlKIhVwp1iyaGdUTAqwNFckElHjQzpNZLPOdF5sQjQg')"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-[#14110E] via-[#14110E]/80 to-transparent"></div>
+<div class="relative z-10 max-w-2xl p-space-lg md:p-space-xl flex flex-col gap-space-md">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#9A7B38]/30 text-[#EBDCB9] font-label-sm text-label-sm uppercase tracking-widest w-fit backdrop-blur-sm">
+<span class="material-symbols-outlined text-body-md text-[#C5A059]">auto_awesome</span>
+                Orfebrería Sostenible &amp; Trazable
+              </div>
+<h1 class="font-serif text-headline-lg md:text-display-lg leading-tight text-[#FAF8F5] font-normal">
+                Brillo y Legado Ancestral Colombiano.
+              </h1>
+<p class="font-body-lg text-body-lg text-[#E3D9C9] max-w-xl">
+                Piezas forjadas a mano por maestros orfebres en Mompox y Bogotá. Engaste de esmeraldas de Muzo certificadas y metales nobles reciclados con sello ético.
+              </p>
+<div class="flex flex-wrap items-center gap-space-md pt-space-sm">
+<a class="px-space-lg py-3 rounded-lg bg-[#C5A059] hover:bg-[#9A7B38] text-[#14110E] hover:text-white font-label-md text-label-md tracking-wider uppercase font-bold shadow-lg transition-all flex items-center gap-2" href="#coleccion">
+<span>Ver Colección Exclusiva</span>
+<span class="material-symbols-outlined text-body-md">arrow_forward</span>
+</a>
+<button class="px-space-md py-3 rounded-lg bg-[#FAF8F5]/10 hover:bg-[#FAF8F5]/20 text-[#FAF8F5] font-label-md text-label-md uppercase tracking-wider transition-all flex items-center gap-2 backdrop-blur-sm">
+<span class="material-symbols-outlined text-body-md text-[#C5A059]">workspace_premium</span>
+<span>Certificación de Autenticidad</span>
+</button>
+</div>
+<!-- Indicadores de confianza -->
+<div class="grid grid-cols-3 gap-space-md pt-space-md text-[#C3B59F]">
+<div>
+<div class="font-serif text-headline-sm font-bold text-[#F7F3EB]">100%</div>
+<div class="font-body-sm text-body-sm">Esmeraldas Muzo Éticas</div>
+</div>
+<div>
+<div class="font-serif text-headline-sm font-bold text-[#F7F3EB]">Ley 950</div>
+<div class="font-body-sm text-body-sm">Plata Fina Certificada</div>
+</div>
+<div>
+<div class="font-serif text-headline-sm font-bold text-[#F7F3EB]">Garantía</div>
+<div class="font-body-sm text-body-sm">Vitalicia en Orfebrería</div>
+</div>
+</div>
+</div>
+</section>
+<!-- BARRA DE FILTROS & VALOR PERCIBIDO -->
+<div class="w-full flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-[#F4EFE6] p-space-md rounded-xl">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-label-md text-label-md text-[#5E5343] font-bold mr-2">Filtrar por:</span>
+<button class="px-space-md py-1.5 rounded-full bg-[#1C1814] text-[#FAF8F5] font-label-sm text-label-sm">Todas las Joyas</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container-lowest text-[#4A4237] hover:bg-[#E7DECD] font-label-sm text-label-sm transition-colors">Oro 18 Kilates</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container-lowest text-[#4A4237] hover:bg-[#E7DECD] font-label-sm text-label-sm transition-colors">Esmeraldas Naturales</button>
+<button class="px-space-md py-1.5 rounded-full bg-surface-container-lowest text-[#4A4237] hover:bg-[#E7DECD] font-label-sm text-label-sm transition-colors">Filigrana en Plata</button>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<span>Orden:</span>
+<select class="bg-surface-container-lowest text-[#1C1814] rounded-lg px-space-sm py-1 focus:outline-none">
+<option>Destacados de Colección</option>
+<option>Mayor Precio (Alta Joyería)</option>
+<option>Menor Precio</option>
+<option>Disponibilidad Inmediata</option>
+</select>
+</div>
+</div>
+<!-- GRID DE PRODUCTOS: 4 PRODUCTOS PRINCIPALES DE ALTA JOYERÍA -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-lg" id="coleccion">
+<!-- PRODUCTO 1: Anillo Esmeralda Muzo -->
+<article class="bg-[#FFFFFF] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+<div class="relative w-full aspect-square overflow-hidden bg-[#F3ECE1]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High end luxury Colombian solitaire engagement ring featuring deep green natural emerald from Muzo cut in octagon step shape set on 18 karat solid yellow gold prongs, shot on neutral stone pedestal with crisp shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH9S0F_CpFFIQtxCro-EA2KeZKmgRX4hVsCbxBtYW_PUZWrH5y7_pnUbK0ixD4M93FiK0xZuOrpPcAfP5mMTlRlhj8cUmDy8WGEXCzNOEH2-ysMllgqasIev_snMNhCt_GlOtNN6_ejPORtAxQMTNEpsUw4uFxvysGhGTF1qvTao1ny98qAsPEDsjF7TbC-grWHBAoqxrW2kJrigmOKyRDxnQXiw5xD4ka7iU-JHFr1uPLHLWz6Ox6mQ"/>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#1C1814] text-[#C5A059] font-label-sm text-label-sm font-semibold tracking-wide uppercase shadow-sm">
+                  Edición Limitada
+                </span>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#FFFFFF]/80 hover:bg-[#FFFFFF] text-[#1C1814] flex items-center justify-center transition-colors shadow-sm" title="Guardar en deseos">
+<span class="material-symbols-outlined text-body-md">favorite_border</span>
+</button>
+<div class="absolute bottom-2 left-2 bg-[#FAF8F5]/90 backdrop-blur-sm px-2 py-0.5 rounded font-label-sm text-label-sm text-[#4A4237]">
+                  Stock: 2 unidades
+                </div>
+</div>
+<div class="p-space-md flex flex-col gap-space-xs flex-1 justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-[#9A7B38] font-bold tracking-wider uppercase">Alta Joyería Andina</span>
+<h3 class="font-serif text-title-md text-[#1C1814] font-semibold mt-1">Anillo Solitario Esmeralda Muzo &amp; Oro 18K</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                    Gema de 1.2 quilates con certificación gemológica CDTEC. Montura artesanal pulida a espejo.
+                  </p>
+</div>
+<div class="pt-space-md mt-space-sm flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface-variant line-through">$2.100.000</span>
+<div class="font-serif text-headline-sm font-bold text-[#1C1814]">$1.850.000 <span class="text-label-sm font-sans font-normal text-on-surface-variant">COP</span></div>
+</div>
+<span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Envío Gratis</span>
+</div>
+<button class="w-full py-2.5 px-space-md rounded-lg bg-[#1C1814] hover:bg-[#9A7B38] text-[#FAF8F5] font-label-sm text-label-sm font-semibold tracking-wider uppercase flex items-center justify-center gap-2 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-body-md">shopping_bag</span>
+                    Añadir al Carrito
+                  </button>
+</div>
+</div>
+</article>
+<!-- PRODUCTO 2: Gargantilla Filigrana Momposina -->
+<article class="bg-[#FFFFFF] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+<div class="relative w-full aspect-square overflow-hidden bg-[#F3ECE1]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Traditional Mompos Colombian handcrafted filigree necklace made with pure 950 sterling silver delicate threads formed into floral lacework patterns, macro jewelry luxury photography, warm studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEtbr0KGBtUv97D5HUe371fTKHiyWcl6mZd9VTL_l906VW2_1soPML5LNOboNAYJ4wJn4b1BefIvndxDz_X_iVBGuneCsKF-OY-P9ZN-ChtCObDf-JNwO12H3TLMORD92tQYoXPfZ7jlzSgbcjbSPDiImJyruYHc9qYTRB-F6AqPjqlCLwVMEeSZnn7soMPkmkYUkVSaswEl7C-J2z0a4i_qipZRzHT9E0WjPXli-riVpAIhIP2xumOw"/>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#306D58] text-[#FFFFFF] font-label-sm text-label-sm font-semibold tracking-wide uppercase shadow-sm">
+                  Artesanal Certificado
+                </span>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#FFFFFF]/80 hover:bg-[#FFFFFF] text-[#1C1814] flex items-center justify-center transition-colors shadow-sm" title="Guardar en deseos">
+<span class="material-symbols-outlined text-body-md">favorite_border</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col gap-space-xs flex-1 justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-[#9A7B38] font-bold tracking-wider uppercase">Platería Mompox</span>
+<h3 class="font-serif text-title-md text-[#1C1814] font-semibold mt-1">Gargantilla Filigrana Momposina en Plata 950</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                    Tejido en hilos de plata pura por maestros del Río Magdalena. Cierre de seguridad tipo reasa.
+                  </p>
+</div>
+<div class="pt-space-md mt-space-sm flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between">
+<div>
+<div class="font-serif text-headline-sm font-bold text-[#1C1814]">$420.000 <span class="text-label-sm font-sans font-normal text-on-surface-variant">COP</span></div>
+</div>
+<span class="text-on-surface-variant font-label-sm text-label-sm">3 cuotas de $140.000</span>
+</div>
+<button class="w-full py-2.5 px-space-md rounded-lg bg-[#1C1814] hover:bg-[#9A7B38] text-[#FAF8F5] font-label-sm text-label-sm font-semibold tracking-wider uppercase flex items-center justify-center gap-2 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-body-md">shopping_bag</span>
+                    Añadir al Carrito
+                  </button>
+</div>
+</div>
+</article>
+<!-- PRODUCTO 3: Aretes Cascada Gotas de Oro -->
+<article class="bg-[#FFFFFF] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+<div class="relative w-full aspect-square overflow-hidden bg-[#F3ECE1]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Pair of designer dangle drop earrings combining 18k yellow gold organic fluid shapes with lustrous genuine freshwater baroque cultured pearls, luxury styling on sand textured marble background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMBFRye57hdOLdhS-s1-yMSZccAzQDM1BFDiexEXaEz__1raKmxwu03c-ieoo4fvQNPD-UbNV8UlG8j_jP81MV8O-z4ljz4a7_6bQGqFHEyq1DdDh6QxL-5cW5eBOnhb2nvEQCw7WQkByKLh9jwADhTMziePjhBorDlPaZUmef2WODPoXJeInL88JZPFUvdzTM0rLrG1a-Ucj5ddea0cwRMdFBSzS_CU931FRcbnbUiMOYKgJVHVyhfA"/>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#EFE9DF] text-[#4A4237] font-label-sm text-label-sm font-semibold tracking-wide uppercase shadow-sm">
+                  Más Vendido
+                </span>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#FFFFFF]/80 hover:bg-[#FFFFFF] text-[#1C1814] flex items-center justify-center transition-colors shadow-sm" title="Guardar en deseos">
+<span class="material-symbols-outlined text-body-md">favorite_border</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col gap-space-xs flex-1 justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-[#9A7B38] font-bold tracking-wider uppercase">Perlas &amp; Oro</span>
+<h3 class="font-serif text-title-md text-[#1C1814] font-semibold mt-1">Aretes Cascada Gotas de Oro y Perla Cultivada</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                    Diseño contemporáneo ligero de 4.8 gramos. Poste hipoalergénico con broche mariposa reforzado.
+                  </p>
+</div>
+<div class="pt-space-md mt-space-sm flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between">
+<div>
+<div class="font-serif text-headline-sm font-bold text-[#1C1814]">$380.000 <span class="text-label-sm font-sans font-normal text-on-surface-variant">COP</span></div>
+</div>
+<span class="text-secondary font-label-sm text-label-sm font-semibold">Envío Inmediato</span>
+</div>
+<button class="w-full py-2.5 px-space-md rounded-lg bg-[#1C1814] hover:bg-[#9A7B38] text-[#FAF8F5] font-label-sm text-label-sm font-semibold tracking-wider uppercase flex items-center justify-center gap-2 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-body-md">shopping_bag</span>
+                    Añadir al Carrito
+                  </button>
+</div>
+</div>
+</article>
+<!-- PRODUCTO 4: Pulsera Eslabón Veneciano -->
+<article class="bg-[#FFFFFF] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+<div class="relative w-full aspect-square overflow-hidden bg-[#F3ECE1]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Sophisticated Venetian link gold bracelet with custom engineered secure designer clasp, polished mirror finish, photographed on luxury cream leather jewelry tray, soft daylight reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3GZjzMHaUbHOgL9zDIAvgZOiKKG7ZCezbfVxv3eTEPIDeRQBZp2hgqEkzcNQiZoL-4bRjU9G-Gt2PQmEg2jCfmkSu-r3JAh5jJ9D0ttfCMB4TDUezg75MmovjRzqwaKefmjIesROruhmoJQOJoTUWkKH35wpd9TPY2_ugDJNV-WKEfjnZtlr_CznALN6NDLRpPv_ZdeM2AIQidmWJxWBNeRvYGHGoxQT05ZRNrE5pc9OVa_F2r70ABA"/>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#FFFFFF]/80 hover:bg-[#FFFFFF] text-[#1C1814] flex items-center justify-center transition-colors shadow-sm" title="Guardar en deseos">
+<span class="material-symbols-outlined text-body-md">favorite_border</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col gap-space-xs flex-1 justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-[#9A7B38] font-bold tracking-wider uppercase">Esenciales Clásicos</span>
+<h3 class="font-serif text-title-md text-[#1C1814] font-semibold mt-1">Pulsera Eslabón Veneciano con Broche Seguro</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+                    Eslabones macizos entrelazados con precisión milimétrica. Longitud adaptable de 17 a 19 cm.
+                  </p>
+</div>
+<div class="pt-space-md mt-space-sm flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between">
+<div>
+<div class="font-serif text-headline-sm font-bold text-[#1C1814]">$690.000 <span class="text-label-sm font-sans font-normal text-on-surface-variant">COP</span></div>
+</div>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Plata Ley 925 Baño Oro</span>
+</div>
+<button class="w-full py-2.5 px-space-md rounded-lg bg-[#1C1814] hover:bg-[#9A7B38] text-[#FAF8F5] font-label-sm text-label-sm font-semibold tracking-wider uppercase flex items-center justify-center gap-2 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-body-md">shopping_bag</span>
+                    Añadir al Carrito
+                  </button>
+</div>
+</div>
+</article>
+</div>
+<!-- SECCIÓN PEDAGÓGICA INTERACTIVA: CÓDIGO ÉTICO & TRAZABILIDAD -->
+<section class="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm flex flex-col lg:flex-row items-center justify-between gap-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-full bg-[#FAF3E5] text-[#9A7B38] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-headline-md">shield_with_heart</span>
+</div>
+<div>
+<h4 class="font-serif text-headline-sm text-[#1C1814]">Trazabilidad Transparente para E-Commerce de Lujo</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xl">
+                  En la formación SENA de e-commerce, cada aprendiz implementa sellos de denominación de origen y contratos simulados de garantía para maximizar la tasa de conversión en clientes de alta renta.
+                </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<div class="bg-surface-container-low px-space-md py-space-sm rounded-lg text-center">
+<span class="font-label-sm text-label-sm text-secondary block font-bold">Tasa Devolución</span>
+<span class="font-headline-sm text-headline-sm font-bold text-[#1C1814]">&lt; 0.8%</span>
+</div>
+<div class="bg-surface-container-low px-space-md py-space-sm rounded-lg text-center">
+<span class="font-label-sm text-label-sm text-secondary block font-bold">NPS Simulado</span>
+<span class="font-headline-sm text-headline-sm font-bold text-[#1C1814]">94/100</span>
+</div>
+</div>
+</section>
+</main>
+<!-- DRAWER / PANEL LATERAL DE CARRITO DE COMPRA (ABIERTO VISIBLE) -->
+<aside class="w-full lg:w-[410px] shrink-0 bg-[#FFFFFF] shadow-2xl p-space-lg flex flex-col justify-between relative transition-all duration-300" id="cart-drawer">
+<div class="flex flex-col gap-space-md">
+<!-- Header del Carrito -->
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-headline-sm text-[#9A7B38]">local_mall</span>
+<h2 class="font-serif text-headline-sm text-[#1C1814] font-semibold">Tu Bolsa de Joyas</h2>
+<span class="px-2 py-0.5 rounded-full bg-[#F3ECE1] text-[#9A7B38] font-label-sm text-label-sm font-bold">2 piezas</span>
+</div>
+<button class="p-1 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-[#F3ECE1]" title="Cerrar panel">
+<span class="material-symbols-outlined text-title-md">close</span>
+</button>
+</div>
+<!-- Alerta Pedagógica de Envío Asegurado -->
+<div class="bg-[#F8F5EE] p-space-sm rounded-lg flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-body-md text-[#9A7B38]">local_shipping</span>
+<p class="font-body-sm text-body-sm text-[#4A4237]">
+                ¡Calificas para <strong>Envío Nacional de Seguridad Blindada</strong> sin costo adicional!
+              </p>
+</div>
+<!-- Lista de Artículos en Carrito -->
+<div class="flex flex-col gap-space-md py-space-sm max-h-[380px] overflow-y-auto pr-1">
+<!-- Item 1 en Carrito -->
+<div class="p-space-sm bg-[#FAF8F5] rounded-xl flex gap-space-sm relative">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-[#EFE9DF] shrink-0">
+<img class="w-full h-full object-cover" data-alt="Square close-up detail of Colombian Muzo Emerald solitaire ring in 18k gold for online shopping cart item thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA1jyCcBAw73UZRY8kp59K2h04sU59iivfRkPI8vGgRGfQM8njhhn9zSow3Lz9ix-IRfdY-oLqExEKTw2Q1CjkItYS1GiepGQg72Y1osI4k0Aox2PYWALvR3Xg8-ElAk5T90ZorBI5NP3voemTjjI2DFTN9MDJx2uxwxyIcLxJpdX8U5sI3tFXtInP1_8QUo3h3srCC9TWKQAfJus2G5b3LSSQuZRmZbTPeAcHvwhj1Qv0icNfsAhqBg"/>
+</div>
+<div class="flex flex-col justify-between flex-1 min-w-0">
+<div>
+<div class="flex items-start justify-between gap-1">
+<h4 class="font-serif text-label-lg text-[#1C1814] font-bold truncate">Anillo Esmeralda Muzo 18K</h4>
+<button class="text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined text-body-sm">delete</span>
+</button>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Talla: 6.5 • Oro Amarillo</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<!-- Selector Cantidad -->
+<div class="flex items-center bg-[#FFFFFF] rounded-md px-2 py-0.5 shadow-sm text-body-sm">
+<button class="text-on-surface-variant hover:text-on-surface px-1 font-bold">-</button>
+<span class="px-2 font-semibold">1</span>
+<button class="text-on-surface-variant hover:text-on-surface px-1 font-bold">+</button>
+</div>
+<span class="font-serif text-title-md font-bold text-[#1C1814]">$1.850.000</span>
+</div>
+</div>
+</div>
+<!-- Item 2 en Carrito -->
+<div class="p-space-sm bg-[#FAF8F5] rounded-xl flex gap-space-sm relative">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-[#EFE9DF] shrink-0">
+<img class="w-full h-full object-cover" data-alt="Square close-up detail of Mompos 950 filigree silver choker necklace thumbnail for shopping bag cart" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADhd8Iamz1YW4J_Sly1ZXESjSSe_8tp84DymYDywX04RrvhhPrUfykuIx0ylQ3gVVRxnq-cW6HdTjhTJ941kHHVVIz1e-YXJSe_AJsxEG6CErYDfAhECREN-mp7Jgwu9d4vpOhZ048IBdn10NwGO8Gomu1ZTmMrWwdYLX4FHFDdFSe42xt7iwZzgA9COnjwzbtsuSVMjnneAiL-SELopAgiNiFe9yXRMHARkSo0az1kAA9OjO2tyV1PA"/>
+</div>
+<div class="flex flex-col justify-between flex-1 min-w-0">
+<div>
+<div class="flex items-start justify-between gap-1">
+<h4 class="font-serif text-label-lg text-[#1C1814] font-bold truncate">Collar Filigrana Momposina</h4>
+<button class="text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined text-body-sm">delete</span>
+</button>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Plata 950 • 42 cm</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<!-- Selector Cantidad -->
+<div class="flex items-center bg-[#FFFFFF] rounded-md px-2 py-0.5 shadow-sm text-body-sm">
+<button class="text-on-surface-variant hover:text-on-surface px-1 font-bold">-</button>
+<span class="px-2 font-semibold">1</span>
+<button class="text-on-surface-variant hover:text-on-surface px-1 font-bold">+</button>
+</div>
+<span class="font-serif text-title-md font-bold text-[#1C1814]">$420.000</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Certificado Digital Didáctico -->
+<div class="p-space-sm rounded-xl bg-secondary-container/40 flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-title-md text-secondary shrink-0">verified_user</span>
+<div>
+<span class="font-label-sm text-label-sm font-bold text-on-secondary-container block">Certificado de Autenticidad Digital</span>
+<span class="font-body-sm text-body-sm text-on-secondary-container">Se adjuntará factura electrónica DIAN y código NFT/Blockchain de trazabilidad minera.</span>
+</div>
+</div>
+<!-- Desglose de Precios -->
+<div class="flex flex-col gap-space-xs py-space-sm">
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Subtotal Joyas</span>
+<span>$2.270.000 COP</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Envío Valorado Nacional</span>
+<span class="text-secondary font-semibold">Gratis ($0)</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Póliza de Extravío/Seguridad</span>
+<span class="text-secondary font-semibold">Cubierta por Tienda</span>
+</div>
+<div class="flex justify-between items-baseline pt-space-xs mt-space-xs">
+<span class="font-title-md text-title-md font-bold text-[#1C1814]">Total Simulado:</span>
+<span class="font-serif text-headline-sm font-bold text-[#1C1814]">$2.270.000 COP</span>
+</div>
+</div>
+</div>
+<!-- Acciones de Conversión -->
+<div class="pt-space-md flex flex-col gap-space-xs">
+<button class="w-full py-3.5 px-space-md rounded-xl bg-[#005F2E] hover:bg-[#007A3D] text-[#FFFFFF] font-label-md text-label-md uppercase tracking-wider font-bold shadow-lg transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-title-md">shopping_cart_checkout</span>
+              Proceder al Pago Seguro SENA (Modo Simulado)
+            </button>
+<p class="font-body-sm text-body-sm text-center text-on-surface-variant">
+              Ambiente de pruebas académicas SENAVENTAS. No procesa dinero real.
+            </p>
+</div>
+</aside>
+</div>
+<!-- FOOTER DE LA TIENDA MODELO CON ENLACE INSTITUCIONAL -->
+<footer class="bg-[#14110E] text-[#C5BBAA] px-space-lg py-space-xl">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-space-lg pb-space-lg">
+<div class="flex flex-col gap-space-xs">
+<span class="font-serif tracking-[0.25em] text-title-md text-[#FAF8F5] uppercase font-bold">A U R A</span>
+<span class="font-label-sm text-label-sm text-[#9A7B38] tracking-widest uppercase">Alta Joyería &amp; Platería</span>
+<p class="font-body-sm text-body-sm text-[#A99F8D] mt-space-xs">
+              Tienda modelo configurada por aprendices del Centro de Comercio y Servicios SENA. Inspirada en la orfebrería precolombina y contemporánea.
+            </p>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-[#FAF8F5] font-semibold uppercase tracking-wider">Líneas de Joyas</span>
+<a class="font-body-sm text-body-sm hover:text-[#FAF8F5] transition-colors" href="#">Esmeraldas Muzo &amp; Chivor</a>
+<a class="font-body-sm text-body-sm hover:text-[#FAF8F5] transition-colors" href="#">Filigrana de Santa Cruz de Mompox</a>
+<a class="font-body-sm text-body-sm hover:text-[#FAF8F5] transition-colors" href="#">Anillos de Compromiso en Oro 18K</a>
+<a class="font-body-sm text-body-sm hover:text-[#FAF8F5] transition-colors" href="#">Platería Fina 950</a>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-[#FAF8F5] font-semibold uppercase tracking-wider">Confianza &amp; Garantías</span>
+<a class="font-body-sm text-body-sm hover:text-[#FAF8F5] transition-colors" href="#">Certificación Gemológica CDTEC</a>
+<a class="font-body-sm text-body-sm hover:text-[#FAF8F5] transition-colors" href="#">Guía para Medidas de Anillos</a>
+<a class="font-body-sm text-body-sm hover:text-[#FAF8F5] transition-colors" href="#">Mantenimiento Anual Gratuito</a>
+<a class="font-body-sm text-body-sm hover:text-[#FAF8F5] transition-colors" href="#">Envíos de Seguridad Valores</a>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-[#FAF8F5] font-semibold uppercase tracking-wider">Atención Concierge</span>
+<p class="font-body-sm text-body-sm text-[#A99F8D]">
+              Asesoría personalizada por orfebres expertos en vivo.
+            </p>
+<div class="flex items-center gap-space-xs mt-space-xs">
+<span class="p-2 rounded-full bg-[#2B231A] text-[#C5A059] flex items-center justify-center">
+<span class="material-symbols-outlined text-body-md">phone_in_talk</span>
+</span>
+<span class="font-label-sm text-label-sm text-[#FAF8F5]">+57 (601) 745-SENA</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="p-2 rounded-full bg-[#2B231A] text-[#C5A059] flex items-center justify-center">
+<span class="material-symbols-outlined text-body-md">verified</span>
+</span>
+<span class="font-label-sm text-label-sm text-[#FAF8F5]">Sello de Comercio Seguro SENA</span>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-[#877C6B]">
+<p>© 2025 SENAVENTAS - Entorno de Capacitación Práctica en Comercio Electrónico. Proyecto Formativo Ficha 27118.</p>
+<div class="flex items-center gap-space-md">
+<span>Términos de Garantía</span>
+<span>Tratamiento de Datos</span>
+<span>Manual del Aprendiz</span>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</div>
+<script>
+  // Control interactivo de viewport Móvil vs Escritorio para el simulador SENAVENTAS
+  const desktopBtn = document.getElementById('view-desktop-btn');
+  const mobileBtn = document.getElementById('view-mobile-btn');
+  const viewport = document.getElementById('store-viewport');
+  const cartDrawer = document.getElementById('cart-drawer');
+  const toggleCartBtn = document.getElementById('toggle-cart-btn');
+
+  if (desktopBtn && mobileBtn && viewport) {
+    desktopBtn.addEventListener('click', () => {
+      viewport.style.maxWidth = '100%';
+      desktopBtn.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      desktopBtn.classList.remove('text-on-surface-variant');
+      mobileBtn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      mobileBtn.classList.add('text-on-surface-variant');
+    });
+
+    mobileBtn.addEventListener('click', () => {
+      viewport.style.maxWidth = '420px';
+      mobileBtn.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      mobileBtn.classList.remove('text-on-surface-variant');
+      desktopBtn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      desktopBtn.classList.add('text-on-surface-variant');
+    });
+  }
+
+  // Toggle para abrir o cerrar suavemente el drawer lateral
+  if (toggleCartBtn && cartDrawer) {
+    toggleCartBtn.addEventListener('click', () => {
+      cartDrawer.classList.toggle('hidden');
+    });
+  }
+</script></main></div></body></html>
