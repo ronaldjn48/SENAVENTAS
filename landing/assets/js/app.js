@@ -219,8 +219,9 @@
     const bn = [['inicio', 'home', 'Inicio'], ['editor', 'design_services', 'Editor'], ['vista', 'visibility', 'Vista'], ['leads', 'database', 'Leads']];
     put('#bnav', bn.map(([id, i, l]) => `<a href="#/${id}" class="${App.route === id ? 'on' : ''}" data-a="go" data-route="${id}">${ic(i)}<span>${l}</span>${id === 'leads' && s.leads.length ? `<b>${s.leads.length}</b>` : ''}</a>`).join('') + `<button data-a="open-side" class="${['plantillas', 'marca', 'formulario', 'publicar', 'nube'].includes(App.route) ? 'on' : ''}">${ic('menu')}<span>Más</span></button>`);
     const initials = s.owner.name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
-    put('#user-card', `<div class="avatar">${esc(initials || 'A')}</div><div class="grow"><b>${esc(s.owner.name)}</b><small>${esc(s.owner.role)}${s.owner.ficha ? ' • Ficha ' + esc(s.owner.ficha) : ''}</small></div>${ic('edit', 'sm muted')}`);
+    put('#user-card', `<div class="avatar">${esc(initials || 'A')}</div><div class="grow"><b>${esc(s.owner.name)}</b><small>Usuario: ${esc(App.user ? App.user.username : '')}${s.owner.ficha ? ' • Ficha ' + esc(s.owner.ficha) : ''}</small></div>${ic('edit', 'sm muted')}`);
     $('#notif-dot').classList.toggle('hide', !App.ui.unseen);
+    if (App.user) put('#acct-chip', `<span class="avatar">${esc(App.user.username.slice(0, 2).toUpperCase())}</span><span>${esc(App.user.username)}</span>`);
     renderSaveStatus();
   };
 
@@ -337,6 +338,11 @@
           </div>`;
         }).join('')}
       </div>
+    </div>
+
+    <div class="card mt">
+      <div class="card-h"><div><h3>${ic('account_circle')} Mi cuenta en este equipo</h3><p class="small muted">Usuario <b>${esc(App.user ? App.user.username : '')}</b>. Tus proyectos y leads solo aparecen con tu usuario. Al terminar la clase cierra sesión: la app queda limpia para el siguiente estudiante.</p></div>
+        <div class="row"><button class="btn btn-soft btn-sm" data-a="export-session" data-id="${s.id}">${ic('download', 'sm')} Respaldo del proyecto</button><button class="btn btn-primary btn-sm" data-a="logout">${ic('logout', 'sm')} Cerrar sesión</button><button class="btn btn-danger btn-sm" data-a="delete-account">${ic('person_remove', 'sm')} Eliminar mi usuario y mis datos</button></div></div>
     </div>
 
     <div class="grid g2 mt">
@@ -799,6 +805,7 @@
   };
 
   const newFromTemplate = async (id) => {
+    if (App.s && App.s.pristine && !App.s.leads.length) await SV.storage.remove(App.s.id);
     const cur = App.s ? App.s.owner : {};
     const p = SV.newProject(id, Object.assign({}, cur));
     p.progress.templateChosen = true;
@@ -895,7 +902,7 @@
       <li><b>WhatsApp:</b> conecta el número o el enlace de WhatsApp Business.</li>
       <li><b>Prueba:</b> en Vista en Vivo deja datos como cliente. Revisa la Base de Datos y descarga el Excel.</li>
       <li><b>Publica:</b> cumple el checklist, comparte el enlace y descarga el paquete del sitio.</li></ol></div>
-      <div class="stack small"><div class="card flat"><b>¿Dónde se guarda mi trabajo?</b><p class="muted">En este navegador (IndexedDB) con guardado automático. Para cambiar de equipo exporta el proyecto (.landing.json) desde Inicio.</p></div>
+      <div class="stack small"><div class="card flat"><b>¿Dónde se guarda mi trabajo?</b><p class="muted">En este navegador, dentro del espacio de tu usuario, con guardado automático. Nadie más ve tus proyectos. Al terminar cierra sesión. Para cambiar de equipo exporta el proyecto (.landing.json) desde Inicio.</p></div>
       <div class="card flat"><b>¿El enlace funciona de verdad?</b><p class="muted">Sí. El enlace directo contiene la landing completa y abre en cualquier dispositivo. Los datos que dejen los visitantes llegan a la nube, al webhook o al correo que configures.</p></div>
       <div class="card flat"><b>Atajos</b><p class="muted"><span class="kbd">Ctrl</span> + <span class="kbd">S</span> guardar · <span class="kbd">Supr</span> eliminar bloque seleccionado · <span class="kbd">Esc</span> cerrar paneles</p></div></div></div>`
   });
@@ -908,6 +915,29 @@
     document.body.appendChild(p);
   };
   A['edit-owner'] = () => go('marca', 'empresa');
+  const leave = () => { location.replace(location.href.split('#')[0]); };
+  A['logout'] = async () => {
+    const s = App.s;
+    const root = App.modal({
+      title: 'Cerrar sesión',
+      body: `<p>Tu trabajo queda guardado con tu usuario <b>${esc(App.user.username)}</b> en este equipo. La pantalla se limpia para el siguiente estudiante.</p><div class="tip" style="padding:12px"><div class="ico" style="width:32px;height:32px">${ic('download', 'sm')}</div><p class="small">¿Vas a seguir en otro equipo? Descarga el respaldo (.landing.json) y luego impórtalo desde Inicio con tu usuario.</p></div>`,
+      foot: `<button class="btn btn-soft" data-a="close-overlay">Cancelar</button><button class="btn btn-soft" data-role="backup">${ic('download')} Descargar respaldo y salir</button><button class="btn btn-primary" data-role="out">${ic('logout')} Cerrar sesión</button>`
+    });
+    const out = async (backup) => {
+      if (backup) U.download(U.slug(s.name) + '.landing.json', JSON.stringify(s, null, 2), 'application/json');
+      await saveNow();
+      SV.auth.logout();
+      setTimeout(leave, backup ? 600 : 0);
+    };
+    root.querySelector('[data-role=backup]').addEventListener('click', () => out(true));
+    root.querySelector('[data-role=out]').addEventListener('click', () => out(false));
+  };
+  A['delete-account'] = async () => {
+    if (!(await App.confirm('Eliminar mi usuario y mis datos', `Se borran el usuario <b>${esc(App.user.username)}</b>, sus proyectos y sus leads de este equipo. Esta acción no se puede deshacer. Descarga antes tus respaldos si los necesitas.`, { ok: 'Eliminar todo', danger: true }))) return;
+    await SV.storage.wipe();
+    SV.auth.remove(App.user.id);
+    leave();
+  };
 
   /* Proyectos */
   A['new-from-tpl'] = (el) => newFromTemplate(el.dataset.id);
@@ -919,6 +949,7 @@
     ['client', 'social', 'theme', 'blocks', 'form', 'wa', 'seo'].forEach((k) => { s[k] = fresh[k]; });
     s.templateId = t.id;
     s.progress.templateChosen = true;
+    s.pristine = false;
     App.ui.sel = null;
     App.commit('Plantilla aplicada: ' + t.name, { render: true });
     toast('Plantilla aplicada. Personalízala en el Editor Visual.');
@@ -952,7 +983,7 @@
     await refreshSessions();
     if (id === App.s.id) {
       const next = App.sessions[0] ? await SV.storage.get(App.sessions[0].id) : null;
-      App.s = next ? SV.normalizeProject(next) : SV.newProject('inmobiliaria');
+      App.s = next ? SV.normalizeProject(next) : freshProject(App.user);
       await saveNow(); await refreshSessions();
     }
     render();
@@ -1210,6 +1241,7 @@
   /* Entradas enlazadas al proyecto (data-bind) y a campos del formulario (data-fld) */
   const onInput = (e) => {
     const el = e.target;
+    if (App.s && App.s.pristine && (el.dataset.bind || el.dataset.fld || el.dataset.bp || el.dataset.img || el.dataset.linksel)) App.s.pristine = false;
     for (const h of App.INPUT) if (h(el, e)) return;
     if (el.dataset.bind) {
       let v = el.type === 'checkbox' ? el.checked : el.value;
@@ -1345,11 +1377,33 @@
     if (doc.fonts.addEventListener) doc.fonts.addEventListener('loadingdone', () => { if (ready()) root.classList.add('icons-ok'); });
   };
 
+  /* Nombre legible a partir del usuario: "laura.gomez" → "Laura Gomez" */
+  const niceName = (u) => String(u || 'Aprendiz').split(/[\s._-]+/).filter(Boolean).map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  /* Proyecto inicial de un usuario nuevo: lienzo limpio, sin leads ni datos de otras personas. */
+  const freshProject = App.freshProject = (acc) => {
+    const p = SV.newProject('blank', { name: niceName(acc && acc.username) });
+    p.name = 'Mi primera landing';
+    p.pristine = true;
+    p.activity = [{ at: Date.now(), text: 'Sesión nueva de ' + (acc ? acc.username : 'aprendiz') + ': proyecto en blanco' }];
+    return p;
+  };
+
   App.boot = async () => {
     watchIconFont(document);
     if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
       navigator.serviceWorker.register('sw.js').catch((err) => console.warn('Service worker no registrado', err));
     }
+    const acc = SV.auth.current();
+    if (!acc) { SV.login.show((a, o) => App.start(a, o)); return; }
+    App.start(acc, {});
+  };
+
+  /* Abre el espacio del usuario: solo sus proyectos y sus leads. */
+  App.start = async (acc, { isNew } = {}) => {
+    App.user = acc;
+    SV.storage.useUser(acc.id);
+    App.s = null;
+    App.ui.links = {}; App.ui.coord = null; App.ui.undo = [];
     await refreshSessions();
     const last = SV.storage.getLast();
     let data = null;
@@ -1359,12 +1413,15 @@
       try { App.s = SV.normalizeProject(data); }
       catch (e) { console.error(e); data = null; }
     }
-    if (!App.s) { App.s = SV.newProject('inmobiliaria'); await saveNow(); await refreshSessions(); }
+    let fresh = false;
+    if (!App.s) { App.s = freshProject(acc); fresh = true; await saveNow(); await refreshSessions(); }
     App.ui.savedAt = App.s.updatedAt;
     loadAppFonts();
     pullInbox();
     const r = location.hash.replace(/^#\/?/, '');
-    App.route = VIEWS[r] ? r : 'inicio';
+    App.route = fresh ? 'plantillas' : VIEWS[r] ? r : 'inicio';
+    if (location.hash !== '#/' + App.route) history.replaceState(null, '', '#/' + App.route);
     render();
+    if (fresh) toast((isNew ? 'Bienvenido, ' : 'Hola, ') + acc.username + '. Escoge una plantilla o empieza desde cero.', 'ok', 'waving_hand');
   };
 })(window.SV);

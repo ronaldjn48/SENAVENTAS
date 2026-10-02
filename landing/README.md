@@ -4,6 +4,19 @@ Simulador educativo para crear landing pages que captan clientes reales: formula
 
 Funciona en la nube (GitHub Pages o Netlify), instalada en el escritorio (PWA), como archivo portable de doble clic y en el servidor del aula. No necesita instalar dependencias ni compilar.
 
+## Acceso por usuario
+
+Al abrir la app aparece una pantalla para **crear usuario** o **ingresar**. No pide correo ni verificación: un usuario (3 a 24 caracteres) y una contraseña (mínimo 4).
+
+* Cada usuario tiene su propio espacio en el navegador. Nadie ve los proyectos, la base de datos de leads ni la clave de coordinación de otra persona.
+* Un usuario nuevo empieza **desde cero** con el proyecto "Mi primera landing" en blanco. Al escoger su primera plantilla, ese proyecto vacío se reemplaza.
+* La sesión termina al cerrar la pestaña. En equipos personales se puede marcar "Mantener mi sesión iniciada".
+* **Cerrar sesión** guarda el trabajo y deja la pantalla limpia para el siguiente estudiante. Ofrece descargar el respaldo (`.landing.json`) para seguir en otro equipo: allí se crea el usuario y se importa desde **Inicio → Importar proyecto**.
+* **Eliminar mi usuario y mis datos** (en Inicio) borra la cuenta, sus proyectos y sus leads de ese equipo. Útil al final del curso en salas compartidas.
+* El archivo portable y el paquete del sitio nunca llevan usuarios ni datos de nadie.
+
+Es un acceso didáctico: los usuarios viven en el navegador de cada equipo y la contraseña no se cifra con estándares de seguridad, así que no sirve para proteger información sensible.
+
 ## Qué incluye
 
 | Módulo | Funciones |
@@ -95,7 +108,8 @@ landing/
   config.js                  Configuración de la coordinación
   manifest.webmanifest, sw.js  Instalación como app y uso sin conexión
   assets/css/app.css         Estilos del creador (línea visual de SENAVENTAS)
-  assets/js/core.js          Utilidades, Excel, enlaces comprimidos, modelo y almacenamiento
+  assets/js/core.js          Utilidades, Excel, enlaces comprimidos, usuarios, modelo y almacenamiento por usuario
+  assets/js/login.js         Pantalla de acceso (crear usuario o ingresar)
   assets/js/art.js           Ilustraciones SVG propias
   assets/js/data.js          Fuentes, paletas, redes, 25 bloques y las plantillas
   assets/js/render.js        Generador de la landing (editor, vista previa, enlace y exportación)

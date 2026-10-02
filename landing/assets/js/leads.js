@@ -24,6 +24,7 @@
       status: lead.status || 'nuevo', notes: lead.notes || '', history: lead.history || [{ at: Date.now(), text: 'Lead registrado (' + (lead.source || source || 'manual') + ')' }]
     };
     s.leads.unshift(l);
+    s.pristine = false;
     s.leads.sort((a, b) => b.at - a.at);
     return l;
   };

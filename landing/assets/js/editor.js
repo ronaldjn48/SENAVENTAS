@@ -177,7 +177,7 @@
   App.onChange = () => { if (App.route === 'editor') patch(); };
 
   const refreshStruct = () => App.refreshPartials({ parts: ['insp'] });
-  const touch = (msg, opts = {}) => { App.s.progress.edited = true; App.commit(msg, Object.assign({ parts: ['insp'] }, opts)); const u = $('[data-a="undo"]'); if (u) u.disabled = !(App.ui.undo || []).length; };
+  const touch = (msg, opts = {}) => { App.s.progress.edited = true; App.s.pristine = false; App.commit(msg, Object.assign({ parts: ['insp'] }, opts)); const u = $('[data-a="undo"]'); if (u) u.disabled = !(App.ui.undo || []).length; };
 
   const select = (id, scroll = true) => {
     App.ui.sel = id;

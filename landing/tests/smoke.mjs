@@ -29,11 +29,25 @@ const page = await ctx.newPage();
 watch(page);
 const frameOf = (sel) => page.frameLocator(sel);
 const commitWait = () => page.waitForTimeout(350);
+/* Acceso: crea el usuario (primera vez) o ingresa */
+const auth = async (p, user, pass, mode) => {
+  await p.waitForSelector('#login-form');
+  if (mode) await p.click(`.login-tabs [data-mode="${mode}"]`);
+  await p.fill('#lg-user', user);
+  await p.fill('#lg-pass', pass);
+  await p.click('#lg-go');
+};
 
 try {
 
-console.log('1. Arranque y navegación');
+console.log('1. Acceso, arranque y navegación');
 await page.goto(BASE + '/index.html#/inicio');
+ok(await page.locator('#login-form').count() === 1 && await page.locator('#view').isHidden(), 'pantalla de acceso antes de entrar');
+await page.screenshot({ path: OUT + '/00-acceso.png' });
+await auth(page, 'laura.gomez', '1234');
+await page.waitForSelector('.tpl-card');
+ok((await page.locator('#acct-chip').innerText()).includes('laura.gomez'), 'usuario nuevo entra con proyecto limpio en Plantillas');
+await page.click('#nav a[data-route="inicio"]');
 await page.waitForSelector('.hero-card');
 ok(await page.locator('#nav a').count() === 9, 'menú con 9 secciones');
 for (const r of ['plantillas', 'editor', 'marca', 'formulario', 'leads', 'vista', 'publicar', 'nube', 'inicio']) {
@@ -245,10 +259,35 @@ await page.click('#nav a[data-route="nube"]');
 await page.click('[data-a="nube-tab"][data-tab="instalar"]');
 ok((await page.locator('pre.code').innerText()).includes('function doPost'), 'código de Google Apps Script disponible');
 
-console.log('10. Versión móvil');
+console.log('10. Sesiones únicas por estudiante');
+await page.click('.top [data-a="logout"]');
+await page.click('.modal [data-role="out"]');
+await page.waitForSelector('#login-form');
+ok(await page.locator('#view').isHidden(), 'cerrar sesión deja la pantalla limpia');
+await auth(page, 'andres.perez', 'abcd', 'register');
+await page.waitForSelector('.tpl-card');
+await page.click('#nav a[data-route="inicio"]');
+await page.waitForSelector('.ses-card');
+ok(await page.locator('.ses-card').count() === 1 && (await page.locator('#ses-name').innerText()).includes('Mi primera landing'), 'el segundo estudiante empieza desde cero');
+await page.click('#nav a[data-route="leads"]');
+ok((await page.locator('.kpi').first().innerText()).includes('0'), 'sin leads de otro estudiante');
+await page.click('.top [data-a="logout"]');
+await page.click('.modal [data-role="out"]');
+await auth(page, 'laura.gomez', 'mala', 'login');
+ok((await page.locator('#lg-msg').innerText()).includes('incorrecta'), 'contraseña incorrecta rechazada');
+await page.fill('#lg-pass', '1234');
+await page.click('#lg-go');
+await page.waitForSelector('#nav');
+await page.click('#nav a[data-route="leads"]');
+ok((await page.locator('.kpi').first().innerText()).includes('19'), 'el primer estudiante recupera sus leads al ingresar');
+
+console.log('11. Versión móvil');
 const mob = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
 const m = await mob.newPage();
 watch(m);
+await m.goto(BASE + '/index.html#/editor');
+await auth(m, 'movil.prueba', '1234');
+await m.waitForSelector('.tpl-card');
 await m.goto(BASE + '/index.html#/editor');
 await m.waitForSelector('.bpane-tabs');
 ok(await m.locator('.bnav a').count() === 4, 'navegación inferior móvil');

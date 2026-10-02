@@ -1,5 +1,5 @@
 /* SENA VENTAS LANDING PAGE · Service worker: instalación como app y uso sin conexión. */
-const VERSION = 'senaventas-landing-v1.0.0';
+const VERSION = 'senaventas-landing-v1.1.0';
 const SHELL = [
   './',
   'index.html',
@@ -8,6 +8,7 @@ const SHELL = [
   'manifest.webmanifest',
   'assets/css/app.css',
   'assets/js/core.js',
+  'assets/js/login.js',
   'assets/js/art.js',
   'assets/js/data.js',
   'assets/js/render.js',

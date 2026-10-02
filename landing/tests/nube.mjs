@@ -57,7 +57,13 @@ page.on('pageerror', (e) => errors.push(e.message));
 try {
   console.log('1. Instalar la nube con el código real de Apps Script');
   await page.goto(BASE + '/index.html#/nube');
-  await page.waitForSelector('.tabs');
+  await page.waitForSelector('#login-form');
+  await page.fill('#lg-user', 'camilo.pardo'); await page.fill('#lg-pass', '1234'); await page.click('#lg-go');
+  await page.waitForSelector('.tpl-card');
+  await page.click('[data-a="new-from-tpl"][data-id="inmobiliaria"]');
+  await page.waitForSelector('#builder');
+  await page.click('#nav a[data-route="nube"]');
+  await page.waitForSelector('#cloud-url');
   vm.runInContext(await page.evaluate(() => SV.APPS_SCRIPT), gas); loaded = true;
   ok(typeof gas.doGet === 'function' && typeof gas.doPost === 'function', 'script cargado');
   await page.fill('#cloud-url', CLOUD);

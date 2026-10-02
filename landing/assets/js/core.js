@@ -263,16 +263,24 @@ window.SV = window.SV || {};
   };
 
   /* ---------- Configuración de la coordinación (config.js) + ajustes locales ---------- */
+  let userNs = '';
+  const userCfgKey = () => 'svl:u:' + (userNs || 'sin-usuario') + ':cfg';
   SV.config = () => {
     const base = Object.assign({ institucion: 'SENA', coordinacion: '', nubeUrl: '', basePublica: '', clavePublicar: '' }, window.SV_CONFIG || {});
     let local = {};
     try { local = JSON.parse(localStorage.getItem('svl:cfg') || '{}'); } catch (e) { local = {}; }
+    try { local.claveCoordinacion = JSON.parse(localStorage.getItem(userCfgKey()) || '{}').claveCoordinacion || ''; } catch (e) { /* sin almacenamiento */ }
     const out = Object.assign({}, base);
     Object.keys(local).forEach((k) => { if (local[k] !== '' && local[k] != null) out[k] = local[k]; });
     out._fromFile = base;
     return out;
   };
   SV.saveConfig = (patch) => {
+    patch = Object.assign({}, patch);
+    if ('claveCoordinacion' in patch) {
+      try { localStorage.setItem(userCfgKey(), JSON.stringify({ claveCoordinacion: patch.claveCoordinacion })); } catch (e) { /* sin almacenamiento */ }
+      delete patch.claveCoordinacion;
+    }
     let local = {};
     try { local = JSON.parse(localStorage.getItem('svl:cfg') || '{}'); } catch (e) { local = {}; }
     Object.assign(local, patch);
@@ -363,16 +371,79 @@ window.SV = window.SV || {};
     return out;
   };
 
-  /* ---------- Almacenamiento: IndexedDB con respaldo en localStorage ---------- */
-  const DB_NAME = 'senaventas-landing';
+  /* ---------- Usuarios del equipo (sin correo ni verificación) ----------
+     Cada usuario tiene su propia base de datos en el navegador: nadie ve los
+     proyectos ni los leads de otra persona y cada cuenta nueva empieza limpia. */
+  U.simpleHash = (str) => {
+    let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+    for (let r = 0; r < 64; r++) {
+      for (let i = 0; i < str.length; i++) { const c = str.charCodeAt(i); h1 = Math.imul(h1 ^ c, 2654435761); h2 = Math.imul(h2 ^ c, 1597334677); }
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+    }
+    return (h2 >>> 0).toString(16).padStart(8, '0') + (h1 >>> 0).toString(16).padStart(8, '0');
+  };
+  const ACC_KEY = 'svl:accounts';
+  const USER_KEY = 'svl:user';
+  let memAccounts = {};
+  let memUser = null;
+  const readAcc = () => { try { return JSON.parse(localStorage.getItem(ACC_KEY) || '{}') || {}; } catch (e) { return memAccounts; } };
+  const writeAcc = (o) => { memAccounts = o; try { localStorage.setItem(ACC_KEY, JSON.stringify(o)); } catch (e) { /* solo memoria */ } };
+  const keyOf = (u) => String(u || '').trim().replace(/\s+/g, ' ').toLowerCase();
+  const hashPw = (id, pw) => U.simpleHash(id + '|' + pw);
+
+  SV.auth = {
+    keyOf,
+    validUsername: (u) => /^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ._\- ]{3,24}$/.test(String(u || '').trim()),
+    count: () => Object.keys(readAcc()).length,
+    register(username, password) {
+      const name = String(username || '').trim().replace(/\s+/g, ' ');
+      if (!SV.auth.validUsername(name)) return { ok: false, error: 'El usuario debe tener entre 3 y 24 caracteres (letras, números, punto, guion o espacio).' };
+      if (String(password || '').length < 4) return { ok: false, error: 'La contraseña debe tener al menos 4 caracteres.' };
+      const all = readAcc(); const id = keyOf(name);
+      if (all[id]) return { ok: false, error: 'Ese usuario ya existe en este equipo. Elige otro o ingresa con tu contraseña.', code: 'exists' };
+      all[id] = { id, username: name, passHash: hashPw(id, password), createdAt: Date.now() };
+      writeAcc(all);
+      return { ok: true, account: all[id] };
+    },
+    login(username, password) {
+      const id = keyOf(username); const acc = readAcc()[id];
+      if (!acc) return { ok: false, error: 'No existe ese usuario en este equipo. Crea uno nuevo.', code: 'no_user' };
+      if (acc.passHash !== hashPw(id, password)) return { ok: false, error: 'Contraseña incorrecta.', code: 'bad_pass' };
+      acc.lastLogin = Date.now(); const all = readAcc(); all[id] = acc; writeAcc(all);
+      return { ok: true, account: acc };
+    },
+    /* La sesión dura mientras la pestaña esté abierta; "mantener" la conserva en el equipo. */
+    setCurrent(acc, keep) {
+      memUser = acc.id;
+      try { sessionStorage.setItem(USER_KEY, acc.id); } catch (e) { /* solo memoria */ }
+      try { if (keep) localStorage.setItem(USER_KEY, acc.id); else localStorage.removeItem(USER_KEY); } catch (e) { /* sin almacenamiento */ }
+    },
+    current() {
+      let id = memUser;
+      try { id = sessionStorage.getItem(USER_KEY) || localStorage.getItem(USER_KEY) || id; } catch (e) { /* sin almacenamiento */ }
+      return id ? (readAcc()[id] || null) : null;
+    },
+    logout() {
+      memUser = null;
+      try { sessionStorage.removeItem(USER_KEY); } catch (e) { /* nada */ }
+      try { localStorage.removeItem(USER_KEY); } catch (e) { /* nada */ }
+    },
+    remove(id) { const all = readAcc(); delete all[id]; writeAcc(all); SV.auth.logout(); }
+  };
+
+  /* ---------- Almacenamiento: IndexedDB con respaldo en localStorage (una base por usuario) ---------- */
+  const DB_PREFIX = 'senaventas-landing-u-';
+  const dbName = () => DB_PREFIX + encodeURIComponent(userNs || 'sin-usuario');
   const STORE = 'projects';
   let dbPromise = null;
 
   const openDB = () => {
     if (dbPromise) return dbPromise;
+    const name = dbName();
     dbPromise = new Promise((res, rej) => {
       if (!('indexedDB' in window)) return rej(new Error('Sin IndexedDB'));
-      const req = indexedDB.open(DB_NAME, 1);
+      const req = indexedDB.open(name, 1);
       req.onupgradeneeded = () => { req.result.createObjectStore(STORE, { keyPath: 'id' }); };
       req.onsuccess = () => res(req.result);
       req.onerror = () => rej(req.error);
@@ -380,8 +451,9 @@ window.SV = window.SV || {};
     return dbPromise;
   };
 
-  const lsKey = (id) => 'svl:project:' + id;
-  const lsIndex = () => { try { return JSON.parse(localStorage.getItem('svl:index') || '[]'); } catch (e) { return []; } };
+  const lsPre = () => 'svl:u:' + (userNs || 'sin-usuario') + ':';
+  const lsKey = (id) => lsPre() + 'project:' + id;
+  const lsIndex = () => { try { return JSON.parse(localStorage.getItem(lsPre() + 'index') || '[]'); } catch (e) { return []; } };
   const summary = (v) => ({ id: v.id, name: v.name, updatedAt: v.updatedAt, createdAt: v.createdAt, templateId: v.templateId, owner: v.owner, blocks: (v.blocks || []).length, leads: (v.leads || []).length, published: v.published, client: v.client && v.client.name, color: v.theme && v.theme.primary, icon: v.client && v.client.icon });
 
   SV.storage = {
@@ -425,7 +497,7 @@ window.SV = window.SV || {};
       }
       localStorage.setItem(lsKey(project.id), JSON.stringify(project));
       const idx = lsIndex();
-      if (!idx.includes(project.id)) { idx.push(project.id); localStorage.setItem('svl:index', JSON.stringify(idx)); }
+      if (!idx.includes(project.id)) { idx.push(project.id); localStorage.setItem(lsPre() + 'index', JSON.stringify(idx)); }
       return true;
     },
     async remove(id) {
@@ -439,11 +511,20 @@ window.SV = window.SV || {};
         });
       }
       localStorage.removeItem(lsKey(id));
-      localStorage.setItem('svl:index', JSON.stringify(lsIndex().filter((x) => x !== id)));
+      localStorage.setItem(lsPre() + 'index', JSON.stringify(lsIndex().filter((x) => x !== id)));
       return true;
     },
-    getLast() { try { return localStorage.getItem('svl:last'); } catch (e) { return null; } },
-    setLast(id) { try { localStorage.setItem('svl:last', id); } catch (e) { /* sin almacenamiento */ } }
+    getLast() { try { return localStorage.getItem(lsPre() + 'last'); } catch (e) { return null; } },
+    setLast(id) { try { localStorage.setItem(lsPre() + 'last', id); } catch (e) { /* sin almacenamiento */ } },
+    /* Cambia al espacio del usuario que inició sesión. */
+    useUser(id) { userNs = id || ''; if (dbPromise) dbPromise.then((db) => { if (db) db.close(); }); dbPromise = null; },
+    /* Borra todos los proyectos y leads del usuario actual en este equipo. */
+    async wipe() {
+      const name = dbName();
+      if (dbPromise) { const db = await dbPromise; if (db) db.close(); dbPromise = null; }
+      await new Promise((res) => { try { const r = indexedDB.deleteDatabase(name); r.onsuccess = r.onerror = r.onblocked = () => res(); } catch (e) { res(); } });
+      try { const pre = lsPre(); Object.keys(localStorage).filter((k) => k.indexOf(pre) === 0).forEach((k) => localStorage.removeItem(k)); } catch (e) { /* sin almacenamiento */ }
+    }
   };
 
   /* ---------- Bandeja local: leads que llegan desde el enlace público abierto en este mismo navegador ---------- */
